@@ -1,0 +1,132 @@
+import 'package:doanchuyennganh/Screens/Welcome/Components/Home.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'Tab.dart';
+class Login extends StatefulWidget {
+  Login({Key? key}) : super(key: key);
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  bool _showPass = false;
+  TextEditingController _userController = new TextEditingController();
+  TextEditingController _passController = new TextEditingController();
+  var _userError = "Tài khoản không hợp lệ";
+  var _passError = "Password phải trên 6 ký tự";
+  var _userInvalid = false;
+  var _passInvalid = false;
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: MaterialApp(
+        home: Scaffold(
+          body: Container(
+            padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+            constraints: BoxConstraints.expand(),
+            color: Colors.white,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                child: Container(
+                  width: 80,
+                  height: 80,
+                  padding: EdgeInsets.all(15),
+                  decoration: BoxDecoration(shape: BoxShape.circle,color: Color(0xffd8d8d8)),
+                  child: FlutterLogo()),
+              ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+                  child: Text("Hello\nWelcome Back", style: TextStyle(
+                    fontWeight: FontWeight.bold, color: Colors.black, fontSize: 25),),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                  child: TextField(
+                    controller: _userController,
+                    style: TextStyle(fontSize: 15, color: Colors.black),
+                    decoration: InputDecoration(labelText: "Username",
+                    errorText: _userInvalid? _userError:null,
+                    labelStyle:
+                    TextStyle(color: Color(0xff888888), fontSize: 18)),
+
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                  child: Stack(
+                    alignment: AlignmentDirectional.centerEnd,
+                    children: <Widget>[
+                      Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                      child: TextField(
+                        controller: _passController,
+                        style: TextStyle(fontSize: 15, color: Colors.black),
+                        obscureText: !_showPass,
+                        decoration: InputDecoration(labelText: "Password",
+                        errorText: _passInvalid?_passError: null,
+                        labelStyle:
+                        TextStyle(color: Color(0xff888888), fontSize: 18)),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: onShowPass,
+                      child: Text(_showPass? "HIDE": "SHOW", style: TextStyle(color: Colors.blue, fontSize: 13, fontWeight: FontWeight.bold ),))
+                    ]
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: RaisedButton(onPressed: onSignInClicked,
+                    color: Colors.blue,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
+                    child: Text("SIGN IN", style: TextStyle(fontSize: 16, color: Colors.white),)),
+                  ),
+                ),
+                Container(
+                  height: 100,
+                  width: double.infinity,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("NEW USER? SIGN UP", style: TextStyle(fontSize: 12, color: Color(0xff888888)),),
+                      Text("FORGOT PASSSWORD?", style: TextStyle(fontSize: 12, color: Colors.blue),)
+                    ],
+                  ),
+                ),
+            ],),
+          ),
+        ),
+      ),
+    );
+  }
+  void onSignInClicked(){
+    setState(() {
+      if (_userController.text.length < 6){
+        _userInvalid = true;
+      }
+      else {_userInvalid = false;}
+      if (_passController.text.length < 6){
+        _passInvalid = true;
+      }
+      else{_passInvalid = false;}
+      if (_userInvalid == false && _passInvalid == false){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => TabPage()));
+      }
+    });
+  }
+  
+  void onShowPass(){
+    setState(() {
+      _showPass = !_showPass;
+    });
+  }
+}
