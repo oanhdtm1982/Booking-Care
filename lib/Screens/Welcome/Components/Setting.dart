@@ -1,3 +1,4 @@
+import 'package:doanchuyennganh/Screens/Welcome/Components/Home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 class SettingPage extends StatefulWidget {
@@ -35,7 +36,13 @@ class _SettingPageState extends State<SettingPage> {
         backgroundColor: Colors.blue,
         title: Text(
           "Settings",
-          style: TextStyle(fontSize: 23),
+        ),
+        leading: IconButton(
+          onPressed: (){
+            //Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back,
+          color: Colors.white,),
         ),
       ),
       body: Container(
@@ -86,13 +93,14 @@ class _SettingPageState extends State<SettingPage> {
               child: OutlinedButton(
                 style: OutlinedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 40),
+                  backgroundColor: Colors.blueAccent,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)
                   )
                 ),
                 onPressed: (){},
                 child: Text("SIGN OUT", style: TextStyle(
-                  fontSize: 15, letterSpacing: 2.2, color: Colors.black
+                  fontSize: 15, letterSpacing: 2.2, color: Colors.white
                 ),),
               )
             )

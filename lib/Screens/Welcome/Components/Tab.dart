@@ -1,4 +1,4 @@
-import 'package:doanchuyennganh/Screens/Welcome/Components/Add.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Register.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Notifications.dart';
 import 'Calendar.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Home.dart';
@@ -16,7 +16,7 @@ class _TabState extends State<TabPage> {
   final screen = [
     HomePage(),
     CalendarPage(),
-    AddPage(),
+    RegisterPage(),
     NotificationPage(),
     SettingPage(),
   ];

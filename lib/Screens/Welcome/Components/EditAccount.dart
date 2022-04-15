@@ -17,7 +17,6 @@ class _EditAccountState extends State<EditAccount> {
         actions: [
           IconButton(
               onPressed: () {
-
               },
               icon: Icon(Icons.save))
         ],
@@ -67,16 +66,124 @@ class _EditAccountState extends State<EditAccount> {
                         child: Icon(Icons.edit,color: Colors.white,),
                       ),
                     ),
-                    SizedBox(
-                      height: 30,
-                    )
                   ],
                 ),
-              )
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              _formUI(),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  _formUI() {
+    return new Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height: 20.0),
+          _email(),
+          SizedBox(height: 20.0),
+          _mobile(),
+          SizedBox(height: 20.0),
+          _birthDate(),
+          SizedBox(height: 20.0),
+          _gender(),
+          SizedBox(height: 20.0),
+        ],
+      ),
+    );
+  }
+  _email() {
+    return Row(children: <Widget>[
+      _prefixIcon(Icons.email),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text('Email',
+              style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 15.0,
+                  color: Colors.grey)),
+          SizedBox(height: 1),
+          Text('-')
+        ],
+      )
+    ]);
+  }
+  _mobile() {
+    return Row(children: <Widget>[
+      _prefixIcon(Icons.phone),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text('Mobile',
+              style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 15.0,
+                  color: Colors.grey)),
+          SizedBox(height: 1),
+          Text('+91 0000000000')
+        ],
+      )
+    ]);
+  }
+  _birthDate() {
+    return Row(children: <Widget>[
+      _prefixIcon(Icons.date_range),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text('Birth date',
+              style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 15.0,
+                  color: Colors.grey)),
+          SizedBox(height: 1),
+          Text('00-00-0000')
+        ],
+      )
+    ]);
+  }
+  _gender() {
+    return Row(children: <Widget>[
+      _prefixIcon(Icons.person),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text('Gender',
+              style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 15.0,
+                  color: Colors.grey)),
+          SizedBox(height: 1),
+          Text('Male')
+        ],
+      )
+    ]);
+  }
+  _prefixIcon(IconData iconData) {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(minWidth: 48.0, minHeight: 48.0),
+      child: Container(
+          padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+          margin: const EdgeInsets.only(right: 8.0),
+          decoration: BoxDecoration(
+              color: Colors.grey.withOpacity(0.2),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30.0),
+                  bottomLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0),
+                  bottomRight: Radius.circular(10.0))),
+          child: Icon(
+            iconData,
+            size: 20,
+            color: Colors.grey,
+          )),
     );
   }
 }

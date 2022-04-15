@@ -19,9 +19,7 @@ class _LoginState extends State<Login> {
   var _passInvalid = false;
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: MaterialApp(
+    return MaterialApp(
         home: Scaffold(
           body: Container(
             padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -105,7 +103,6 @@ class _LoginState extends State<Login> {
             ],),
           ),
         ),
-      ),
     );
   }
   void onSignInClicked(){
