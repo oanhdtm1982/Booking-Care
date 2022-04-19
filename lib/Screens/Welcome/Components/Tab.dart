@@ -1,8 +1,8 @@
-import 'package:doanchuyennganh/Screens/Welcome/Components/Register.dart';
-import 'package:doanchuyennganh/Screens/Welcome/Components/Notifications.dart';
-import 'Calendar.dart';
-import 'package:doanchuyennganh/Screens/Welcome/Components/Home.dart';
-import 'package:doanchuyennganh/Screens/Welcome/Components/Setting.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Booking/Register.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Notification/Notifications.dart';
+import 'Calendar/Calendar.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Home/Home.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Setting/Setting.dart';
 import 'package:flutter/material.dart';
 
 class TabPage extends StatefulWidget {

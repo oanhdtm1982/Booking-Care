@@ -1,6 +1,6 @@
 import 'package:doanchuyennganh/Screens/Welcome/Components/Splash.dart';
 import 'package:flutter/material.dart';
-import 'Welcome/Components/Login.dart';
+import 'Welcome/Components/Login/Login.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);

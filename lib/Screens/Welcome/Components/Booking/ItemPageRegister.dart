@@ -12,6 +12,7 @@ class ItemPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(height: 20.0),
+            //Address Hospital
             Row(
                 children: <Widget>[
                   _prefixIcon(Icons.gps_fixed),
@@ -36,6 +37,7 @@ class ItemPage extends StatelessWidget {
                 ]
             ),
             SizedBox(height: 20.0),
+            //ID
             Row(children: <Widget>[
               _prefixIcon(Icons.airline_seat_individual_suite),
               Column(
@@ -52,22 +54,25 @@ class ItemPage extends StatelessWidget {
               )
             ]),
             SizedBox(height: 20.0),
+
+            //BirthDay
             Row(children: <Widget>[
-              _prefixIcon(Icons.phone),
+              _prefixIcon(Icons.today),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Mobile',
+                  Text('BirthDay',
                       style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 15.0,
                           color: Colors.grey)),
                   SizedBox(height: 1),
-                  Text('+84 12345678')
+                  Text('00-00-0000')
                 ],
               )
             ]),
             SizedBox(height: 20.0),
+            //Gender
             Row(children: <Widget>[
               _prefixIcon(Icons.person),
               Column(
@@ -84,6 +89,24 @@ class ItemPage extends StatelessWidget {
               )
             ]),
             SizedBox(height: 20.0),
+            //Mobile
+            Row(children: <Widget>[
+              _prefixIcon(Icons.phone),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('Mobile',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 15.0,
+                          color: Colors.grey)),
+                  SizedBox(height: 1),
+                  Text('+84 12345678')
+                ],
+              )
+            ]),
+            SizedBox(height: 20.0),
+            //Specially
             Row(children: <Widget>[
               _prefixIcon(Icons.folder_special),
               Column(
@@ -100,6 +123,7 @@ class ItemPage extends StatelessWidget {
               )
             ]),
             SizedBox(height: 20.0),
+            //DayRegister
             Row(children: <Widget>[
               _prefixIcon(Icons.date_range),
               Column(

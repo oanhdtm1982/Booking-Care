@@ -86,6 +86,22 @@ class _EditAccountState extends State<EditAccount> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(height: 20.0),
+          Row(children: <Widget>[
+            _prefixIcon(Icons.airline_seat_individual_suite),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text('ID',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 15.0,
+                        color: Colors.grey)),
+                SizedBox(height: 1),
+                Text('001')
+              ],
+            )
+          ]),
+          SizedBox(height: 20.0),
           _email(),
           SizedBox(height: 20.0),
           _mobile(),

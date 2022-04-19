@@ -26,6 +26,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Google Map'),
+        backgroundColor: Colors.blue,
       ),
       body: GoogleMap(
         initialCameraPosition: CameraPosition(

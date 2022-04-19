@@ -1,7 +1,8 @@
-import 'package:doanchuyennganh/Screens/Welcome/Components/Home.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Home/Home.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Login/RegisterAccount_Firebase.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'Tab.dart';
+import '../Tab.dart';
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
 
@@ -48,7 +49,7 @@ class _LoginState extends State<Login> {
                   child: TextField(
                     controller: _userController,
                     style: TextStyle(fontSize: 15, color: Colors.black),
-                    decoration: InputDecoration(labelText: "Username",
+                    decoration: InputDecoration(labelText: "Email",
                     errorText: _userInvalid? _userError:null,
                     labelStyle:
                     TextStyle(color: Color(0xff888888), fontSize: 18)),
@@ -95,7 +96,13 @@ class _LoginState extends State<Login> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("NEW USER? SIGN UP", style: TextStyle(fontSize: 12, color: Color(0xff888888)),),
+                      GestureDetector(
+                          child: Text("REGISTER",
+                            style: TextStyle(fontSize: 12, color: Colors.blue),),
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SignUp()));
+                        },
+                      ),
                       Text("FORGOT PASSSWORD?", style: TextStyle(fontSize: 12, color: Colors.blue),)
                     ],
                   ),

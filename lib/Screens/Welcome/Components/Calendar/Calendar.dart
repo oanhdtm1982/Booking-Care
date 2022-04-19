@@ -1,4 +1,4 @@
-import 'package:doanchuyennganh/Screens/Welcome/Components/CalendarEvent.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Calendar/CalendarEvent.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 class CalendarPage extends StatefulWidget {
@@ -82,7 +82,7 @@ class _CalendarPageState extends State<CalendarPage> {
               titleCentered: true,
           formatButtonShowsNext: false,
             formatButtonDecoration: BoxDecoration(
-              color: Colors.blueAccent,
+              color: Colors.blue,
               borderRadius: BorderRadius.circular(6.0)
             ),
             formatButtonTextStyle: TextStyle(color: Colors.white)
