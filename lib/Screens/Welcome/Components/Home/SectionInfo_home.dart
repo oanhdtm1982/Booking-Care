@@ -58,6 +58,31 @@ class InfoCard extends StatelessWidget {
     );
   }
 }
+class BannerCard extends StatelessWidget {
+  const BannerCard({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          Card(
+              image: "assets/images/banner.png",
+              press: () {
+
+              }),
+          Card(
+              image: "assets/images/banner.png",
+              press: () {
+
+              }),
+          SizedBox(width: 20,)
+        ],
+      ),
+    );
+  }
+}
 
 class Card extends StatelessWidget {
   const Card({

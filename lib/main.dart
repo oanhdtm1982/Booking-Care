@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/GoogleSignIn.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/Login.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/RegisterAccount_Firebase.dart';
@@ -19,7 +18,7 @@ void main() async{
   runApp(
     MaterialApp(
       home: MyApp(),
-    ),
+    ),  
   );
 
 }
@@ -41,9 +40,8 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.system,
         darkTheme: MyThemes.darkTheme,
         */
-        home: WelcomeScreen(),
-        //home: TabPage(),
-        //home: SignUp(),
+        //home: WelcomeScreen(),
+        home: TabPage(),
       )
   );
 }
