@@ -1,3 +1,4 @@
+import 'package:doanchuyennganh/Screens/Welcome/Components/Tab.dart';
 import 'package:flutter/material.dart';
 import 'NotificationTitle.dart';
 import 'NotificationDetail.dart';
@@ -17,7 +18,10 @@ class _NotificationPageState extends State<NotificationPage> {
         title: Text("Notifications",),
         leading: IconButton(
           onPressed: () {
-            //Navigator.pop(context);
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) {
+              return TabPage();
+            }));
           },
           icon: Icon(Icons.arrow_back,
             color: Colors.white,),

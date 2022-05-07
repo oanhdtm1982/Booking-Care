@@ -1,4 +1,6 @@
 import 'package:doanchuyennganh/Screens/Welcome/Components/Calendar/CalendarEvent.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Home/Home.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Tab.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 class CalendarPage extends StatefulWidget {
@@ -31,7 +33,10 @@ class _CalendarPageState extends State<CalendarPage> {
           title: Text("Calendar"),
           leading: IconButton(
             onPressed: (){
-              //Navigator.pop(context);
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) {
+                return TabPage();
+              }));
             },
             icon: Icon(Icons.arrow_back,
               color: Colors.white,),
@@ -88,25 +93,6 @@ class _CalendarPageState extends State<CalendarPage> {
             formatButtonTextStyle: TextStyle(color: Colors.white)
           ),
         ),
-      floatingActionButton: FloatingActionButton.extended(
-          onPressed: () => showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                title: Text('Add Event'),
-                content: Text("Enter Event Title"),
-                actions: [
-                  TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: Text("Cancel")),
-                  TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: Text("OK"))
-                ],
-              )
-          ),
-          label: Text("Add"),
-        icon: Icon(Icons.add),
-      ),
     );
   }
 }

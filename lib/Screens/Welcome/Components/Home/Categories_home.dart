@@ -16,7 +16,11 @@ class Categories extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ...List.generate(categories.length, (index) => CategoryCard(icon: categories[index]["icon"], text: categories[index]["text"], press: (){})),
+          ...List.generate(categories.length, (index) => CategoryCard(
+              icon: categories[index]["icon"],
+              text: categories[index]["text"],
+              press: (){})
+          ),
         ],
       ),
     );

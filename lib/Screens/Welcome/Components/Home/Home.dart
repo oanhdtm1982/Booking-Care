@@ -1,34 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'Categories_home.dart';
 import 'SectionInfo_home.dart';
 import 'EditAccount.dart';
-import 'package:doanchuyennganh/Screens/Welcome/Components/Login/Login.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
+  static String RouteName = "/Home";
   @override
-  Widget build(BuildContext context) => Scaffold(
-    body: StreamBuilder(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot){
-        if (snapshot.connectionState == ConnectionState.waiting){
-          return Center(child: BodyHomePage());
-        }
-        else if (snapshot.hasData){
-          return BodyHomePage();
-        }
-        else if (snapshot.hasError){
-          return Center(child: Text('Something went wrong'),);
-        }
-        else{
-          return Login();
-        }
-      },
-    ),
-  );
+  Widget build(BuildContext context) {
+    return BodyHomePage();
+  }
 }
 
 class BodyHomePage extends StatelessWidget {
@@ -47,7 +29,10 @@ class BodyHomePage extends StatelessWidget {
               height: 100,
               decoration: BoxDecoration(
                 color: Colors.blueAccent,
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
+                ),
               ),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
@@ -61,7 +46,7 @@ class BodyHomePage extends StatelessWidget {
                           child: Image.asset("assets/images/avatar.png",)),
                       Padding(
                         padding: const EdgeInsets.all(20.0),
-                        child: Text("Hello \nWelcome back", style: TextStyle(
+                        child: Text("Hello, \nWelcome back", style: TextStyle(
                             color: Colors.white,
                             fontSize: 22
                         ),),

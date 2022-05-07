@@ -1,3 +1,4 @@
+import 'package:doanchuyennganh/Screens/Welcome/Components/Home/Home.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/GoogleSignIn.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -53,9 +54,12 @@ class SignUp extends StatelessWidget {
                 onPrimary: Colors.white,
                 minimumSize: Size(double.infinity, 50),
               ),
-              onPressed: (){
+              onPressed: () async {
                 final provider = Provider.of<GoogleSignInProvider>(context, listen: false);
-                provider.googleLogin();
+                await provider.googleLogin();
+                if (provider.hasListeners){
+                  Navigator.pushNamed(context, HomePage.RouteName);
+                }
               },
               label: Text('Sign Up With Google'),
               icon: FaIcon(FontAwesomeIcons.google,

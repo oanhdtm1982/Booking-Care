@@ -1,5 +1,6 @@
 import 'package:doanchuyennganh/Screens/Welcome/Components/DarkMode.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Home/Home.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +44,10 @@ class _SettingPageState extends State<SettingPage> {
         ),
         leading: IconButton(
           onPressed: (){
-            //Navigator.pop(context);
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) {
+              return TabPage();
+            }));
           },
           icon: Icon(Icons.arrow_back,
           color: Colors.white,),
