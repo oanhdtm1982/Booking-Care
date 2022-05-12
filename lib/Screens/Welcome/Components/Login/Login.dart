@@ -1,8 +1,8 @@
 
 import 'package:doanchuyennganh/Screens/Welcome/Components/Authentication.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/RegisterAccount_Firebase.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../Keyboard.dart';
 import '../Tab.dart';
@@ -15,6 +15,10 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+  final AuthService _authService = AuthService();
+
+
   bool _showPass = false;
   TextEditingController _userController = new TextEditingController();
   TextEditingController _passController = new TextEditingController();
@@ -139,7 +143,15 @@ class _LoginState extends State<Login> {
     );
   }
  Future<void> onSignInClicked() async{
-   if(_formKey.currentState!.validate()){
+    dynamic result =  await _authService.signInAnon();
+    if (result == null) {
+      print('error signing in');
+    }
+    else {
+      print('signed in');
+      print(result);
+    }
+  /* if(_formKey.currentState!.validate()){
      _formKey.currentState!.save();
      KeyboardUtil.hideKeyboard(context);
    }
@@ -157,7 +169,8 @@ class _LoginState extends State<Login> {
           }
         });
       }
-    });
+    });*/
+
   }
 
   /*void onSignInClicked(){
