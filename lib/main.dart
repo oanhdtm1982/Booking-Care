@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/GoogleSignIn.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Tab.dart';
 import 'package:doanchuyennganh/Screens/welcome_screen.dart';
 import 'package:doanchuyennganh/constants.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
         darkTheme: MyThemes.darkTheme,
         */
 
-        home: WelcomeScreen(),
+        //home: WelcomeScreen(),
+      home: TabPage(),
       )
   );
 }
