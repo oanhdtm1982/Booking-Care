@@ -1,5 +1,7 @@
 
 import 'package:doanchuyennganh/Screens/Welcome/Components/Authentication.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Login/ForgotPasswordPage.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Login/RegisterAccount.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/RegisterAccount_Firebase.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:flutter/cupertino.dart';
@@ -130,10 +132,15 @@ class _LoginState extends State<Login> {
                             child: Text("REGISTER",
                               style: TextStyle(fontSize: 12, color: Colors.blue),),
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => SignUp()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterAccount()));
                           },
                         ),
-                        Text("FORGOT PASSSWORD?", style: TextStyle(fontSize: 12, color: Colors.blue),)
+                        GestureDetector(
+                            child: Text("FORGOT PASSSWORD?", style: TextStyle(fontSize: 12, color: Colors.blue),),
+                          onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordPage()));
+                          },
+                        )
                       ],
                     ),
                   ),
