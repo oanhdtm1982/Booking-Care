@@ -143,23 +143,23 @@ class _LoginState extends State<Login> {
     );
   }
  Future<void> onSignInClicked() async{
-    dynamic result =  await _authService.signInAnon();
-    if (result == null) {
-      print('error signing in');
-    }
-    else {
-      print('signed in');
-      print(result);
-    }
-  /* if(_formKey.currentState!.validate()){
+   if(_formKey.currentState!.validate()){
      _formKey.currentState!.save();
      KeyboardUtil.hideKeyboard(context);
+     //dynamic result = await _authService.registerWithEmailAndPassword(email!, password!);
    }
-    setState(() {
+    setState(() async {
       if (_userController.text.length > 6){
         _userInvalid = true;
-        signin(email!, password!);
-        FirebaseAuth.instance.idTokenChanges().listen((User ? user) {
+        dynamic result = await _authService.signInWithEmailAndPassword(email!, password!);
+        if (result == null) {
+
+        }
+        else {
+          print("Logged in");
+          Navigator.push(context, MaterialPageRoute(builder: (context) => TabPage()));
+        }
+        /*FirebaseAuth.instance.idTokenChanges().listen((User ? user) {
           if(user==null){
             print("User is currently signed out");
           }
@@ -167,9 +167,9 @@ class _LoginState extends State<Login> {
             print("Logged in");
             Navigator.push(context, MaterialPageRoute(builder: (context) => TabPage()));
           }
-        });
+        }*/
       }
-    });*/
+    });
 
   }
 
