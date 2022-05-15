@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:doanchuyennganh/Auth/Authentication.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Tab.dart';
 import 'package:flutter/material.dart';
 import '../Setting/ThemeHelper.dart';
@@ -15,9 +16,16 @@ class RegisterAccount extends StatefulWidget {
 
 class _RegisterAccountState extends State<RegisterAccount> {
 
+  final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
   bool checkedValue = false;
   bool checkboxValue = false;
+
+  String email = "";
+  String password = "";
+  String name = "";
+  String gender = "";
+  String phoneNumber = "";
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +87,13 @@ class _RegisterAccountState extends State<RegisterAccount> {
                         Container(
                           child: TextFormField(
                             decoration: ThemeHelper().textInputDecoration('Name', 'Enter your first name'),
+                              validator: (val) {
+                                if (!(val!.isEmpty)) {
+                                    setState(() {
+                                      name = val;
+                                    });
+                                }
+                              }
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
@@ -86,6 +101,13 @@ class _RegisterAccountState extends State<RegisterAccount> {
                         Container(
                           child: TextFormField(
                             decoration: ThemeHelper().textInputDecoration('Gender', 'Enter your gender'),
+                              validator: (val) {
+                                if (!(val!.isEmpty)) {
+                                  setState(() {
+                                    gender = val;
+                                  });
+                                }
+                              }
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
@@ -105,6 +127,11 @@ class _RegisterAccountState extends State<RegisterAccount> {
                               if(!(val!.isEmpty) && !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$").hasMatch(val)){
                                 return "Enter a valid email address";
                               }
+                              else {
+                                setState(() {
+                                  email = val;
+                                });
+                              }
                               return null;
                             },
                           ),
@@ -121,6 +148,11 @@ class _RegisterAccountState extends State<RegisterAccount> {
                               if(!(val!.isEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val)){
                                 return "Enter a valid phone number";
                               }
+                              else {
+                                setState(() {
+                                  phoneNumber = val;
+                                });
+                              }
                               return null;
                             },
                           ),
@@ -135,6 +167,11 @@ class _RegisterAccountState extends State<RegisterAccount> {
                             validator: (val) {
                               if (val!.isEmpty) {
                                 return "Please enter your password";
+                              }
+                              else {
+                                setState(() {
+                                  password = val;
+                                });
                               }
                               return null;
                             },
@@ -193,12 +230,19 @@ class _RegisterAccountState extends State<RegisterAccount> {
                                   color: Colors.white,
                                 ),
                               ),
-                            ),
-                            onPressed: () {
+                            ) ,
+                            onPressed: () async {
                               if (_formKey.currentState!.validate()) {
+                                dynamic result = await _authService.registerAccount(name, email, password, gender, phoneNumber);
+                                print(name);
+                                print(email);
+                                print(password);
+                                print(gender);
+                                print(phoneNumber);
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
                                         builder: (context) => TabPage()
+
                                     ),
                                         (Route<dynamic> route) => false
                                 );

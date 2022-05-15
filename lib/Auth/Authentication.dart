@@ -1,3 +1,4 @@
+import 'package:doanchuyennganh/Service/Database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:doanchuyennganh/Models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -28,8 +29,29 @@ class AuthService {
 
   //sign in with email and password
 
-  //regiter with email & password
+  Future<Users?> signInWithEmailAndPassword(String _email, String _password) async {
+    try {
+      UserCredential resutl = await _auth.signInWithEmailAndPassword(email: _email, password: _password);
+      User? user = resutl.user;
+      return _userFromUserCredential(user);
+    } catch(e) {
+      print(e.toString());
+      return null;
+    }
+  }
 
+  //regiter with email & password
+  Future<Users?> registerAccount(String _name, String _email, String _password, String _gender, String _phoneNumber) async {
+    try {
+      UserCredential resutl = await _auth.createUserWithEmailAndPassword(email: _email, password: _password);
+      User? user = resutl.user;
+      await DatabaseService(uid: user!.uid).updateUserData("0", _name, _email, _password, "", "", _phoneNumber, "", _gender, "", "", "", "");
+      return _userFromUserCredential(user);
+    } catch(e) {
+      print(e.toString());
+      return null;
+    }
+  }
 }
 
 /*

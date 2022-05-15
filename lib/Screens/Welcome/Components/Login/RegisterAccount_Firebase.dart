@@ -1,11 +1,27 @@
+import 'package:doanchuyennganh/Auth/Authentication.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Home/Home.dart';
 import 'package:doanchuyennganh/Auth/GoogleSignIn.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import '../../../../Auth/GoogleSignIn.dart';
-class SignUp extends StatelessWidget {
-  const SignUp({Key? key}) : super(key: key);
+class SignUp extends StatefulWidget {
+
+  final Function toggleView;
+  SignUp({required this.toggleView});
+  //const SignUp({Key? key}) : super(key: key);
+
+  _signUpState createState() => _signUpState();
+}
+
+class _signUpState extends State<SignUp> {
+
+  final AuthService _authService = AuthService();
+  final _formkey = GlobalKey<FormState>();
+
+  String email = '';
+  String password = '';
+
 
   @override
   Widget build(BuildContext context) {

@@ -27,6 +27,21 @@ class Users {
       this.isactive,
       this.createat,
       this.deleteat);
+
+  /*Users(String _uid, String _name, String _email, String _password, String _roleid, String _address, String _phone, String _avatar, String _gender, String _description, String _isactive, String _createat, String _deleteat) {
+    this.uid = _uid;
+    this.email = _email;
+    this.password = _password;
+    this.roleid = _roleid;
+    this.address = _address;
+    this.phone = _phone;
+    this.avatar = _avatar;
+    this.gender = _gender;
+    this.description = _description;
+    this.isactive = _isactive;
+    this.createat = _createat;
+    this.deleteat = _deleteat;
+  }*/
   String getuid() {
     return this.uid;
   }

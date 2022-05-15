@@ -19,7 +19,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
 
   final AuthService _authService = AuthService();
-
+  final _formKey = GlobalKey<FormState>();
 
   bool _showPass = false;
   TextEditingController _userController = new TextEditingController();
@@ -31,7 +31,6 @@ class _LoginState extends State<Login> {
   String? email;
   String? password;
   bool? remember = false;
-  final _formKey = GlobalKey<FormState>();
   
   final List<String> errors = [];
   void addError({required String error}){
@@ -79,15 +78,20 @@ class _LoginState extends State<Login> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                     child: TextField(
+                      onChanged: (val) {
+                        setState(() {
+                          email = val;
+                        });
+                      },
                       controller: _userController,
                       style: TextStyle(fontSize: 15, color: Colors.black),
                       decoration: InputDecoration(labelText: "Email",
                       errorText: _userInvalid? _userError:null,
                       labelStyle:
                       TextStyle(color: Color(0xff888888), fontSize: 18)),
-
                     ),
                   ),
+
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                     child: Stack(
@@ -96,6 +100,11 @@ class _LoginState extends State<Login> {
                         Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                         child: TextField(
+                          onChanged: (value) {
+                            setState(() {
+                              password = value;
+                            });
+                          },
                           controller: _passController,
                           style: TextStyle(fontSize: 15, color: Colors.black),
                           obscureText: !_showPass,
@@ -104,11 +113,13 @@ class _LoginState extends State<Login> {
                           labelStyle:
                           TextStyle(color: Color(0xff888888), fontSize: 18)),
                         ),
+
                       ),
                       GestureDetector(
                         onTap: onShowPass,
                         child: Text(_showPass? "HIDE": "SHOW", style: TextStyle(color: Colors.blue, fontSize: 13, fontWeight: FontWeight.bold ),))
                       ]
+
                     ),
                   ),
                   Padding(
@@ -116,7 +127,7 @@ class _LoginState extends State<Login> {
                     child: SizedBox(
                       width: double.infinity,
                       height: 50,
-                      child: RaisedButton(onPressed: onSignInClicked,
+                      child: RaisedButton(onPressed: onSignInClicked ,
                       color: Colors.blue,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
                       child: Text("SIGN IN", style: TextStyle(fontSize: 16, color: Colors.white),)),
@@ -150,14 +161,17 @@ class _LoginState extends State<Login> {
     );
   }
  Future<void> onSignInClicked() async{
-    dynamic result =  await _authService.signInAnon();
-    if (result == null) {
-      print('error signing in');
-    }
-    else {
-      print('signed in');
-      print(result);
-    }
+   print(email);
+   print(password);
+   dynamic result =  await _authService.signInWithEmailAndPassword(email!, password!);
+   if (result == null) {
+        print('error signing in');
+   } else {
+        print('signed in');
+        Navigator.push(context, MaterialPageRoute(builder: (context) => TabPage()));
+        print(result);
+   }
+
   /* if(_formKey.currentState!.validate()){
      _formKey.currentState!.save();
      KeyboardUtil.hideKeyboard(context);
