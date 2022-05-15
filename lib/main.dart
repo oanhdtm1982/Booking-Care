@@ -1,6 +1,8 @@
 import 'dart:async';
-import 'package:doanchuyennganh/Screens/Welcome/Components/Login/GoogleSignIn.dart';
+import 'package:doanchuyennganh/Auth/GoogleSignIn.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/DarkMode.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/RegisterAccount.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Setting/Setting.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Tab.dart';
 import 'package:doanchuyennganh/Screens/welcome_screen.dart';
 import 'package:doanchuyennganh/constants.dart';
@@ -23,22 +25,25 @@ Future<void> main() async{
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) => ChangeNotifierProvider(
-    create: (context) => GoogleSignInProvider(),
-    child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Đồ Án Chuyên Ngành',
-        theme: ThemeData(
-        primaryColor: kPrimaryColor,
-        scaffoldBackgroundColor: Colors.white,),
-        /*theme: MyThemes.lightTheme,
-        themeMode: ThemeMode.system,
-        darkTheme: MyThemes.darkTheme,
-        */
-
-        home: WelcomeScreen(),
-      //home: TabPage(),
-      //home: RegisterAccount(),
-      )
-  );
+  Widget build(BuildContext context) =>
+      MultiProvider(providers: [
+        ChangeNotifierProvider(
+            create: (context) => GoogleSignInProvider()),
+        ChangeNotifierProvider(create: (context) => ThemeProvider())
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Đồ Án Chuyên Ngành',
+          theme: ThemeData(
+          primaryColor: kPrimaryColor,
+          scaffoldBackgroundColor: Colors.white,),
+          /*theme: MyThemes.lightTheme,
+          themeMode: ThemeMode.system,
+          darkTheme: MyThemes.darkTheme,
+          */
+  
+          //home: WelcomeScreen(),
+          home: TabPage(),
+          //home: RegisterAccount(),
+  ));
 }

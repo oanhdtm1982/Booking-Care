@@ -103,7 +103,7 @@ class _ForgotPasswordVerificationPageState extends State<ForgotPasswordVerificat
                                         showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
-                                            return ThemeHelper().alartDialog("Successful",
+                                            return ThemeHelper().alertDialog("Successful",
                                                 "Verification code resend successful.",
                                                 context);
                                           },

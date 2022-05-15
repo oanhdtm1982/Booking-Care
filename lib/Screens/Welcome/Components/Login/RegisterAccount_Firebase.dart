@@ -1,9 +1,9 @@
 import 'package:doanchuyennganh/Screens/Welcome/Components/Home/Home.dart';
-import 'package:doanchuyennganh/Screens/Welcome/Components/Login/GoogleSignIn.dart';
+import 'package:doanchuyennganh/Auth/GoogleSignIn.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'GoogleSignIn.dart';
+import '../../../../Auth/GoogleSignIn.dart';
 class SignUp extends StatelessWidget {
   const SignUp({Key? key}) : super(key: key);
 

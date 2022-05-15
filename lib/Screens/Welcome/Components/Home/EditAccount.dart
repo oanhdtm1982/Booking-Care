@@ -1,5 +1,6 @@
 import 'dart:ffi';
 import 'dart:io';
+import 'package:doanchuyennganh/Screens/prefixIcon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -128,8 +129,6 @@ class _EditAccountState extends State<EditAccount> {
           SizedBox(height: 20.0),
           BirthDay(),
           SizedBox(height: 20.0),
-          _gender(),
-          SizedBox(height: 20.0),
         ],
       ),
     );
@@ -151,7 +150,7 @@ class _EditAccountState extends State<EditAccount> {
         disabledBorder: InputBorder.none,
         contentPadding:
         EdgeInsets.only(left: 0, bottom: 11, top: 11, right: 15),
-        icon: _prefixIcon(Icons.airline_seat_individual_suite),
+        icon: PrefixIcon(iconData: Icons.airline_seat_individual_suite),
       ),
     );
   }
@@ -173,7 +172,7 @@ class _EditAccountState extends State<EditAccount> {
         disabledBorder: InputBorder.none,
         contentPadding:
         EdgeInsets.only(left: 0, bottom: 11, top: 11, right: 15),
-        icon: _prefixIcon(Icons.email),
+        icon: PrefixIcon(iconData: Icons.email),
       ),
     );
   }
@@ -193,51 +192,12 @@ class _EditAccountState extends State<EditAccount> {
         disabledBorder: InputBorder.none,
         contentPadding:
         EdgeInsets.only(left: 0, bottom: 11, top: 11, right: 15),
-        icon: _prefixIcon(Icons.phone),
+        icon: PrefixIcon(iconData: Icons.phone),
       ),
-    );
-  }
-  _gender() {
-    return TextFormField(
-      decoration: InputDecoration(
-        labelText: "Gender",
-        labelStyle: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 15.0,
-            color: Colors.grey
-        ),
-        border: InputBorder.none,
-        focusedBorder: InputBorder.none,
-        enabledBorder: InputBorder.none,
-        errorBorder: InputBorder.none,
-        disabledBorder: InputBorder.none,
-        contentPadding:
-        EdgeInsets.only(left: 0, bottom: 11, top: 11, right: 15),
-        icon: _prefixIcon(Icons.person),
-      ),
-    );
-  }
-  _prefixIcon(IconData iconData) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(minWidth: 48.0, minHeight: 48.0),
-      child: Container(
-          padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
-          margin: const EdgeInsets.only(right: 8.0),
-          decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.2),
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30.0),
-                  bottomLeft: Radius.circular(30.0),
-                  topRight: Radius.circular(30.0),
-                  bottomRight: Radius.circular(10.0))),
-          child: Icon(
-            iconData,
-            size: 20,
-            color: Colors.grey,
-          )),
     );
   }
 }
+
 
 class BirthDay extends StatefulWidget {
   const BirthDay({Key? key}) : super(key: key);
@@ -266,7 +226,7 @@ class _BirthDayState extends State<BirthDay> {
   @override
   Widget build(BuildContext context) {
     return Row(children: <Widget>[
-      _prefixIcon(Icons.date_range),
+      PrefixIcon(iconData: Icons.date_range),
       GestureDetector(
         child: Padding(
           padding: const EdgeInsets.only(left: 15, bottom: 0, top: 0, right: 15),
@@ -288,26 +248,7 @@ class _BirthDayState extends State<BirthDay> {
       )
     ]);
   }
-  _prefixIcon(IconData iconData) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(minWidth: 48.0, minHeight: 48.0),
-      child: Container(
-          padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
-          margin: const EdgeInsets.only(right: 8.0),
-          decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.2),
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30.0),
-                  bottomLeft: Radius.circular(30.0),
-                  topRight: Radius.circular(30.0),
-                  bottomRight: Radius.circular(10.0))),
-          child: Icon(
-            iconData,
-            size: 20,
-            color: Colors.grey,
-          )),
-    );
-  }
+
 }
 
 
