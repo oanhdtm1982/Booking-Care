@@ -221,7 +221,7 @@ class _RegisterAccountState extends State<RegisterAccount> {
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return ThemeHelper().alartDialog("Google Plus","You tap on GooglePlus social icon.",context);
+                                      return ThemeHelper().alertDialog("Google Plus","You tap on GooglePlus social icon.",context);
                                     },
                                   );
                                 });
@@ -245,7 +245,7 @@ class _RegisterAccountState extends State<RegisterAccount> {
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return ThemeHelper().alartDialog("Twitter","You tap on Twitter social icon.",context);
+                                      return ThemeHelper().alertDialog("Twitter","You tap on Twitter social icon.",context);
                                     },
                                   );
                                 });
@@ -261,7 +261,7 @@ class _RegisterAccountState extends State<RegisterAccount> {
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return ThemeHelper().alartDialog("Facebook",
+                                      return ThemeHelper().alertDialog("Facebook",
                                           "You tap on Facebook social icon.",
                                           context);
                                     },

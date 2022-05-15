@@ -1,4 +1,5 @@
 import 'package:doanchuyennganh/Screens/Welcome/Components/Calendar/CalendarEvent.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Calendar/History.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Home/Home.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Tab.dart';
 import 'package:flutter/material.dart';
@@ -42,55 +43,64 @@ class _CalendarPageState extends State<CalendarPage> {
               color: Colors.white,),
           ),
         ),
-        body: TableCalendar(
-          focusedDay: selectedDay,
-          firstDay: DateTime(2019),
-          lastDay: DateTime(2023),
-          calendarFormat: format,
-          onFormatChanged: (CalendarFormat _format){
-            setState(() {
-              format = _format;
-            });
-          },
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [
+              TableCalendar(
+                focusedDay: selectedDay,
+                firstDay: DateTime(2019),
+                lastDay: DateTime(2023),
+                calendarFormat: format,
+                onFormatChanged: (CalendarFormat _format){
+                  setState(() {
+                    format = _format;
+                  });
+                },
 
-          startingDayOfWeek: StartingDayOfWeek.monday,
-          daysOfWeekVisible: true,
+                startingDayOfWeek: StartingDayOfWeek.monday,
+                daysOfWeekVisible: true,
 
-          onDaySelected: (DateTime selectDay, DateTime focusDay){
-            setState(() {
-              selectedDay = selectDay;
-              focusedDay = focusDay;
-            });
-          },
+                onDaySelected: (DateTime selectDay, DateTime focusDay){
+                  setState(() {
+                    selectedDay = selectDay;
+                    focusedDay = focusDay;
+                  });
+                },
 
-          selectedDayPredicate: (DateTime date){
-            return isSameDay(selectedDay, date);
-          },
+                selectedDayPredicate: (DateTime date){
+                  return isSameDay(selectedDay, date);
+                },
 
-          eventLoader: _getEventsDay,
-          calendarStyle: CalendarStyle(
-            isTodayHighlighted: true,
-            selectedDecoration: BoxDecoration(
-              color: Colors.blue,
-              shape: BoxShape.circle,
-            ),
-            selectedTextStyle: TextStyle(
-              color: Colors.white,
-            ),
-            todayDecoration: BoxDecoration(
-              color: Colors.redAccent,
-              shape: BoxShape.circle,
-            )
-          ),
-          headerStyle: HeaderStyle(
-              formatButtonVisible: true,
-              titleCentered: true,
-          formatButtonShowsNext: false,
-            formatButtonDecoration: BoxDecoration(
-              color: Colors.blue,
-              borderRadius: BorderRadius.circular(6.0)
-            ),
-            formatButtonTextStyle: TextStyle(color: Colors.white)
+                eventLoader: _getEventsDay,
+                calendarStyle: CalendarStyle(
+                  isTodayHighlighted: true,
+                  selectedDecoration: BoxDecoration(
+                    color: Colors.blue,
+                    shape: BoxShape.circle,
+                  ),
+                  selectedTextStyle: TextStyle(
+                    color: Colors.white,
+                  ),
+                  todayDecoration: BoxDecoration(
+                    color: Colors.redAccent,
+                    shape: BoxShape.circle,
+                  )
+                ),
+                headerStyle: HeaderStyle(
+                    formatButtonVisible: true,
+                    titleCentered: true,
+                formatButtonShowsNext: false,
+                  formatButtonDecoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(6.0)
+                  ),
+                  formatButtonTextStyle: TextStyle(color: Colors.white)
+                ),
+              ),
+              SizedBox(height: 20,),
+              History(),
+            ],
           ),
         ),
     );

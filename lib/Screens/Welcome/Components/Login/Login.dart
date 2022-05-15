@@ -1,5 +1,5 @@
 
-import 'package:doanchuyennganh/Screens/Welcome/Components/Authentication.dart';
+import 'package:doanchuyennganh/Auth/Authentication.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/ForgotPasswordPage.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/RegisterAccount.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/RegisterAccount_Firebase.dart';

@@ -95,9 +95,11 @@ class _SettingPageState extends State<SettingPage> {
                 child: buildNotification("Theme Dark", varNotify1, onChangeFuntion1),
             //DankMode
             onTap: () {
-                  if (varNotify1 == true){
-                    ChangeThemeButton();
-                  }
+                 setState(() {
+                   if (varNotify1 == true){
+                     ChangeThemeButton();
+                   }
+                 });
             },
             ),
             buildNotification("Account Active", varNotify2, onChangeFuntion2),
@@ -187,17 +189,20 @@ class _SettingPageState extends State<SettingPage> {
     );
   }
 }
+
 class ThemeBuilder extends StatefulWidget {
   final Widget Function(BuildContext context, Brightness brightness) builder;
   ThemeBuilder({required this.builder});
   @override
   State<ThemeBuilder> createState() => _ThemeBuilderState();
 }
-
+//
 class _ThemeBuilderState extends State<ThemeBuilder> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+
+    );
   }
 }
 

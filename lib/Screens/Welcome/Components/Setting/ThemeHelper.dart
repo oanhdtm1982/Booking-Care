@@ -68,7 +68,7 @@ class ThemeHelper{
     );
   }
 
-  AlertDialog alartDialog(String title, String content, BuildContext context) {
+  AlertDialog alertDialog(String title, String content, BuildContext context) {
     return AlertDialog(
       title: Text(title),
       content: Text(content),
@@ -87,9 +87,5 @@ class ThemeHelper{
       ],
     );
   }
-
-}
-
-class LoginFormStyle{
 
 }

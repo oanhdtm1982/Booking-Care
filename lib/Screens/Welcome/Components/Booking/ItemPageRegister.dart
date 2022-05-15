@@ -1,3 +1,5 @@
+import 'package:doanchuyennganh/Screens/Welcome/Components/Booking/SpecialtyOption.dart';
+import 'package:doanchuyennganh/Screens/prefixIcon.dart';
 import 'package:flutter/material.dart';
 import 'MapScreen.dart';
 class ItemPage extends StatelessWidget {
@@ -15,7 +17,7 @@ class ItemPage extends StatelessWidget {
             //Address Hospital
             Row(
                 children: <Widget>[
-                  _prefixIcon(Icons.gps_fixed),
+                  PrefixIcon(iconData: Icons.gps_fixed),
                   GestureDetector(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +41,7 @@ class ItemPage extends StatelessWidget {
             SizedBox(height: 20.0),
             //ID
             Row(children: <Widget>[
-              _prefixIcon(Icons.airline_seat_individual_suite),
+              PrefixIcon(iconData: Icons.airline_seat_individual_suite),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -57,7 +59,7 @@ class ItemPage extends StatelessWidget {
 
             //BirthDay
             Row(children: <Widget>[
-              _prefixIcon(Icons.today),
+              PrefixIcon(iconData: Icons.today),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -74,7 +76,7 @@ class ItemPage extends StatelessWidget {
             SizedBox(height: 20.0),
             //Gender
             Row(children: <Widget>[
-              _prefixIcon(Icons.person),
+              PrefixIcon(iconData: Icons.person),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -91,7 +93,7 @@ class ItemPage extends StatelessWidget {
             SizedBox(height: 20.0),
             //Mobile
             Row(children: <Widget>[
-              _prefixIcon(Icons.phone),
+              PrefixIcon(iconData: Icons.phone),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -108,24 +110,29 @@ class ItemPage extends StatelessWidget {
             SizedBox(height: 20.0),
             //Specially
             Row(children: <Widget>[
-              _prefixIcon(Icons.folder_special),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text('Specialty',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 15.0,
-                          color: Colors.grey)),
-                  SizedBox(height: 1),
-                  Text('...')
-                ],
+              PrefixIcon(iconData: Icons.folder_special),
+              GestureDetector(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text('Specialty',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 15.0,
+                            color: Colors.grey)),
+                    SizedBox(height: 1),
+                    Text('...')
+                  ],
+                ),
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SpecialtyOption()));
+                },
               )
             ]),
             SizedBox(height: 20.0),
             //DayRegister
             Row(children: <Widget>[
-              _prefixIcon(Icons.date_range),
+              PrefixIcon(iconData: Icons.date_range),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -160,24 +167,5 @@ class ItemPage extends StatelessWidget {
       ),
     );
   }
-  _prefixIcon(IconData iconData) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(minWidth: 48.0, minHeight: 48.0),
-      child: Container(
-          padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
-          margin: const EdgeInsets.only(right: 8.0),
-          decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.2),
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30.0),
-                  bottomLeft: Radius.circular(30.0),
-                  topRight: Radius.circular(30.0),
-                  bottomRight: Radius.circular(10.0))),
-          child: Icon(
-            iconData,
-            size: 20,
-            color: Colors.grey,
-          )),
-    );
-  }
 }
+
