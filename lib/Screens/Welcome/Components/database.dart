@@ -27,4 +27,7 @@ class DatabaseService {
       'deleteat':user.deleteat,
     });
   }
+  Stream<QuerySnapshot> get user {
+    return app
+  }
 }
