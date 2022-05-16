@@ -15,7 +15,6 @@ class AuthService {
     }
   }
   //sign in anon
-
   Future<Users?> signInAnon() async {
     try {
       UserCredential _userCredential = await _auth.signInAnonymously();
@@ -51,6 +50,12 @@ class AuthService {
       print(e.toString());
       return null;
     }
+  }
+  // auth user change stream
+  Stream<Users?> get user {
+    return _auth.authStateChanges()
+       // .map((User? user) => _userFromUserCredential(user));
+      .map(_userFromUserCredential);
   }
 }
 

@@ -23,4 +23,7 @@ class DatabaseService {
         'deleteat': _deleteat,
       });
   }
+  Stream<QuerySnapshot> get user {
+    return collectionReference.snapshots();
+  }
 }
