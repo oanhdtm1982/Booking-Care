@@ -42,8 +42,8 @@ class MyApp extends StatelessWidget {
           darkTheme: MyThemes.darkTheme,
           */
   
-          //home: WelcomeScreen(),
-          home: TabPage(),
+          home: WelcomeScreen(),
+          //home: TabPage(),
           //home: RegisterAccount(),
   ));
 }
