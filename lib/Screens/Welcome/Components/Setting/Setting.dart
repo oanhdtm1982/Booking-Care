@@ -1,17 +1,17 @@
-import 'package:doanchuyennganh/Screens/Welcome/Components/DarkMode.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Setting/ChangeButtonDarkMode.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Setting/DarkMode.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Home/Home.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import '../DarkMode.dart';
+import 'DarkMode.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({Key? key}) : super(key: key);
   @override
   State<SettingPage> createState() => _SettingPageState();
 }
-
 class _SettingPageState extends State<SettingPage> {
   bool varNotify1 = false;
   bool varNotify2 = false;
@@ -190,36 +190,6 @@ class _SettingPageState extends State<SettingPage> {
   }
 }
 
-class ThemeBuilder extends StatefulWidget {
-  final Widget Function(BuildContext context, Brightness brightness) builder;
-  ThemeBuilder({required this.builder});
-  @override
-  State<ThemeBuilder> createState() => _ThemeBuilderState();
-}
-//
-class _ThemeBuilderState extends State<ThemeBuilder> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
 
-    );
-  }
-}
-
-class ChangeThemeButton extends StatelessWidget {
-  const ChangeThemeButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-    return Switch.adaptive(
-        onChanged: (value){
-          final provider = Provider.of<ThemeProvider>(context, listen: true);
-          provider.toggleTheme(value);
-        },
-        value: themeProvider.isDarkMode,
-    );
-  }
-}
 
 

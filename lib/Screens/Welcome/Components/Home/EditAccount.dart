@@ -1,11 +1,9 @@
-import 'dart:ffi';
-import 'dart:io';
 import 'package:doanchuyennganh/Screens/prefixIcon.dart';
+import 'package:doanchuyennganh/widgets/avatar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:provider/provider.dart';
+
+
 
 class EditAccount extends StatefulWidget {
   const EditAccount({Key? key}) : super(key: key);
@@ -15,9 +13,10 @@ class EditAccount extends StatefulWidget {
 }
 
 class _EditAccountState extends State<EditAccount> {
-  File? _image;
+
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -37,95 +36,28 @@ class _EditAccountState extends State<EditAccount> {
             },
           child: ListView(
             children: [
-              _avatar(),
+              Avatar(path: user.photoURL!),
               SizedBox(
                 height: 20,
               ),
-              _formUI(),
+              _formUI(user.uid),
             ],
           ),
         ),
       ),
     );
   }
-  _avatar(){
-    Future pickImage() async{
-      try {
-        final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-        if (image == null){
-          return;
-        }
-        final imageTemporary = File(image.path);
-        setState(() {
-          this._image = imageTemporary;
-        });
-      } on PlatformException catch (e){
-
-      }
-    }
-
-    return Center(
-        child: Stack(
-          children: [
-            GestureDetector(
-              onTap: (){
-                pickImage();
-              },
-              child: Container(
-                width: 130,
-                height: 130,
-                decoration: BoxDecoration(
-                  border: Border.all(width: 4, color: Colors.white),
-                  boxShadow: [
-                    BoxShadow(
-                        spreadRadius: 2,
-                        blurRadius: 10,
-                        color: Colors.black.withOpacity(0.1)
-                    )
-                  ],
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage("assets/images/avatar.png"),
-                    //image:  FileImage(_image!),
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                      width: 4,
-                      color: Colors.white
-                  ),
-                  color: Colors.blueAccent,
-                ),
-                  child: Icon(Icons.edit,color: Colors.white,)
-              ),
-            ),
-          ],
-        ),
-    );
-}
-  _formUI() {
+  _formUI(String uid) {
     return new Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-/*          SizedBox(height: 20.0),
-          _cover(),*/
           SizedBox(height: 20.0),
-          _id(),
+          _id(uid),
           SizedBox(height: 20.0),
-          _email(),
+          _buildForm("Email", Icons.email),
           SizedBox(height: 20.0),
-          _mobile(),
+          _buildForm("Phone Number", Icons.phone),
           SizedBox(height: 20.0),
           BirthDay(),
           SizedBox(height: 20.0),
@@ -133,10 +65,10 @@ class _EditAccountState extends State<EditAccount> {
       ),
     );
   }
-  _id(){
+  _id(String id){
     return TextFormField(
       decoration: InputDecoration(
-        labelText: "ID",
+        labelText: id,
         labelStyle: TextStyle(
             fontWeight: FontWeight.w700,
             fontSize: 15.0,
@@ -154,11 +86,11 @@ class _EditAccountState extends State<EditAccount> {
       ),
     );
   }
-  _email() {
+  _buildForm(String text,IconData icondata) {
     return TextFormField(
       decoration: InputDecoration(
         // Để mail lúc đăng kí, không edit được
-        labelText: "Email",
+        labelText: text,
         labelStyle: TextStyle(
             fontWeight: FontWeight.w700,
             fontSize: 15.0,
@@ -172,27 +104,7 @@ class _EditAccountState extends State<EditAccount> {
         disabledBorder: InputBorder.none,
         contentPadding:
         EdgeInsets.only(left: 0, bottom: 11, top: 11, right: 15),
-        icon: PrefixIcon(iconData: Icons.email),
-      ),
-    );
-  }
-  _mobile() {
-    return TextFormField(
-      decoration: InputDecoration(
-        labelText: "PhoneNumber",
-        labelStyle: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 15.0,
-            color: Colors.grey
-        ),
-        border: InputBorder.none,
-        focusedBorder: InputBorder.none,
-        enabledBorder: InputBorder.none,
-        errorBorder: InputBorder.none,
-        disabledBorder: InputBorder.none,
-        contentPadding:
-        EdgeInsets.only(left: 0, bottom: 11, top: 11, right: 15),
-        icon: PrefixIcon(iconData: Icons.phone),
+        icon: PrefixIcon(iconData: icondata),
       ),
     );
   }
