@@ -1,3 +1,7 @@
+import 'package:doanchuyennganh/Screens/Welcome/Components/Booking/Register.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Calendar/Calendar.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Calendar/History.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Home/EditAccount.dart';
 import 'package:flutter/material.dart';
 class Categories extends StatelessWidget {
   const Categories({Key? key}) : super(key: key);
@@ -19,7 +23,32 @@ class Categories extends StatelessWidget {
           ...List.generate(categories.length, (index) => CategoryCard(
               icon: categories[index]["icon"],
               text: categories[index]["text"],
-              press: (){})
+              press: (){
+                if(categories[index]["text"] == "Register"){
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => RegisterPage()
+                      ),
+                          (Route<dynamic> route) => false
+                  );
+                }
+                if(categories[index]["text"] == "History"){
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => CalendarPage()
+                      ),
+                          (Route<dynamic> route) => false
+                  );
+                }
+                if(categories[index]["text"] == "Profile"){
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => EditAccount()
+                      ),
+                          (Route<dynamic> route) => false
+                  );
+                }
+              })
           ),
         ],
       ),

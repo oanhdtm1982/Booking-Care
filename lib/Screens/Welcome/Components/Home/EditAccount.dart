@@ -1,3 +1,4 @@
+import 'package:doanchuyennganh/Screens/Welcome/Components/Tab.dart';
 import 'package:doanchuyennganh/Screens/prefixIcon.dart';
 import 'package:doanchuyennganh/widgets/avatar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,6 +19,15 @@ class _EditAccountState extends State<EditAccount> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                  builder: (context) => TabPage()
+              ),
+                  (Route<dynamic> route) => false
+          )
+        ),
         title: Text("Edit Account"),
         actions: [
           IconButton(

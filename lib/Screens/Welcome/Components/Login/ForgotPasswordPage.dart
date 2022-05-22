@@ -1,11 +1,11 @@
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/Header.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/Login.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Setting/ThemeHelper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
-import 'ForgotPasswordVerticationPage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);
@@ -16,6 +16,13 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final _formKey = GlobalKey<FormState>();
+  final _auth = FirebaseAuth.instance;
+  String? err;
+  late String msg;
+  void sentMsg() {
+    Fluttertoast.showToast(msg: msg);
+  }
+  final _emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double _headerHeight = 300;
@@ -76,6 +83,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           children: <Widget>[
                             Container(
                               child: TextFormField(
+                                onChanged: (value) => _emailController.text = value!,
                                 decoration: ThemeHelper().textInputDecoration("Email", "Enter your email"),
                                 validator: (val){
                                   if(val!.isEmpty){
@@ -107,13 +115,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  if(_formKey.currentState!.validate()) {
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => ForgotPasswordVerificationPage()),
-                                    );
-                                  }
+                                    _resetPassword();
                                 },
                               ),
                             ),
@@ -150,4 +152,34 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         )
     );
   }
+  Future<void> _resetPassword() async{
+    if(_formKey.currentState!.validate()) {
+      try {
+        await _auth.sendPasswordResetEmail(email: _emailController.text);
+        this.msg = 'Email has been sent to ${_emailController.text}';
+        this.sentMsg();
+        Navigator.pop(context);
+        throw UnimplementedError;
+      } on FirebaseAuthException catch (error) {
+        switch (error.code) {
+          case "invalid-email":
+            err = "Your email address appears to be malformed.";
+            break;
+          case "user-not-found":
+            err = "User with this email doesn't exist.";
+            break;
+          case "user-disabled":
+            err = "User with this email has been disabled.";
+            break;
+          case "too-many-requests":
+            err = "Too many requests";
+            break;
+          default:
+            err = "An undefined Error happened.";
+        }
+        Fluttertoast.showToast(msg: err!);
+        print(error.code);
+      }
+    }
+}
 }
