@@ -1,4 +1,8 @@
+import 'package:doanchuyennganh/Models/Banner.dart';
+import 'package:doanchuyennganh/widgets/webview_navigating.dart';
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+
 class SectionInfo extends StatelessWidget {
   const SectionInfo({Key? key,
     required this.text,
@@ -31,55 +35,32 @@ class InfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Column(
       children: [
         SectionInfo(text: "Medical Information", press: () {
         }),
-        SizedBox(height: 20,),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              Card(
-                  image: "assets/images/banner.png",
-                  press: () {
-
-                  }),
-              Card(
-                  image: "assets/images/banner.png",
-                  press: () {
-
-                  }),
-              SizedBox(width: 20,)
-            ],
-          ),
-        ),
+        GridView.builder(
+          shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: banner_raw.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 1,
+          crossAxisSpacing: 1,
+          mainAxisSpacing: 1,
+        ), itemBuilder: (BuildContext context,int index){
+          return Card(image: banner_raw[index].image,
+              press: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) => WebViewNavigating()
+                    ),
+                        (Route<dynamic> route) => false
+                );
+              }, size: size);
+        })
       ],
-    );
-  }
-}
-class BannerCard extends StatelessWidget {
-  const BannerCard({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          Card(
-              image: "assets/images/banner.png",
-              press: () {
-
-              }),
-          Card(
-              image: "assets/images/banner.png",
-              press: () {
-
-              }),
-          SizedBox(width: 20,)
-        ],
-      ),
     );
   }
 }
@@ -88,23 +69,31 @@ class Card extends StatelessWidget {
   const Card({
     Key? key,
     required this.image,
-    required this.press}) : super(key: key);
+    required this.press,
+    required this.size,
+  }) : super(key: key);
   final String image;
+  final Size size;
   final GestureTapCallback press;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20),
-      child: SizedBox(
-        width: 250,
-        height: 200,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Stack(
-            children: [
-              Image.asset(image,
-                fit: BoxFit.cover,),
-            ],),
+      padding: const EdgeInsets.only(left: 10,top: 20,right: 10),
+      child: GestureDetector(
+        onTap: press,
+        child: SizedBox(
+          width: size.width,
+          height: size.height,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              children: [
+                Image.asset(image,
+                  width: size.width,
+                  height: size.height,
+                  fit: BoxFit.cover),
+              ],),
+          ),
         ),
       ),
     );

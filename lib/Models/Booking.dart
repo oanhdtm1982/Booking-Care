@@ -29,3 +29,12 @@ class Booking extends Equatable{
   name = doc.data()!["name"],
   gender = doc.data()!["gender"];
 }
+List<Booking> list_booking_raw = [
+  Booking(phone: "0335240370", id: "001", name: "Dung", gender: "Male"),
+  Booking(phone: "0123456789", id: "002", name: "Messi", gender: "Male"),
+  Booking(phone: "0983123121", id: "003", name: "Ronaldo", gender: "Male"),
+  Booking(phone: "0982131212", id: "004", name: "Oanh", gender: "Female"),
+];
+List<String> title = [
+  "ID","Name",""
+];

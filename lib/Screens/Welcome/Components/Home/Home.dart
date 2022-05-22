@@ -1,4 +1,5 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'Categories_home.dart';
 import 'SectionInfo_home.dart';
@@ -18,6 +19,7 @@ class BodyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
     return SafeArea(child: SingleChildScrollView(
       child: Column(
         children: [
@@ -46,7 +48,9 @@ class BodyHomePage extends StatelessWidget {
                           child: Image.asset("assets/images/avatar.png",)),
                       Padding(
                         padding: const EdgeInsets.all(20.0),
-                        child: Text("Hello, \nWelcome back", style: TextStyle(
+                        child: Text("Hello, \n${
+                          user?.displayName != null ? user?.displayName : "Welcome back"
+                        }", style: TextStyle(
                             color: Colors.white,
                             fontSize: 22
                         ),),
@@ -57,9 +61,6 @@ class BodyHomePage extends StatelessWidget {
           Categories(),
           SizedBox(height: 30,),
           InfoCard(),
-          SizedBox(height: 10,),
-          BannerCard(),
-          SizedBox(height: 50,),
         ],
       ),
     ));

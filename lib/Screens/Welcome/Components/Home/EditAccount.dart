@@ -3,8 +3,6 @@ import 'package:doanchuyennganh/widgets/avatar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-
-
 class EditAccount extends StatefulWidget {
   const EditAccount({Key? key}) : super(key: key);
 
@@ -40,14 +38,16 @@ class _EditAccountState extends State<EditAccount> {
               SizedBox(
                 height: 20,
               ),
-              _formUI(user.uid),
+              _formUI(user.uid != null ? user.uid : "uid",
+                  user.email != null ? user.email! : "email",
+                  user.phoneNumber != null ? user.phoneNumber! : "Phone Number"),
             ],
           ),
         ),
       ),
     );
   }
-  _formUI(String uid) {
+  _formUI(String uid,String email,String phoneNum) {
     return new Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,9 +55,9 @@ class _EditAccountState extends State<EditAccount> {
           SizedBox(height: 20.0),
           _id(uid),
           SizedBox(height: 20.0),
-          _buildForm("Email", Icons.email),
+          _buildForm(email, Icons.email),
           SizedBox(height: 20.0),
-          _buildForm("Phone Number", Icons.phone),
+          _buildForm(phoneNum, Icons.phone),
           SizedBox(height: 20.0),
           BirthDay(),
           SizedBox(height: 20.0),

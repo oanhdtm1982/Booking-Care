@@ -51,6 +51,7 @@ dependencies:
   equatable: ^2.0.3
   flutter_bloc: ^8.0.1
   bloc: ^8.0.3
+  webview_flutter: ^3.0.4
 
 
 dev_dependencies:

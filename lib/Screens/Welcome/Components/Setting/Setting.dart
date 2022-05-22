@@ -1,10 +1,11 @@
+import 'package:doanchuyennganh/Screens/Welcome/Components/Login/Login.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Setting/ChangeButtonDarkMode.dart';
-import 'package:doanchuyennganh/Screens/Welcome/Components/Setting/DarkMode.dart';
-import 'package:doanchuyennganh/Screens/Welcome/Components/Home/Home.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import '../../../../bloc/auth_bloc/auth_bloc.dart';
 import 'DarkMode.dart';
 
 class SettingPage extends StatefulWidget {
@@ -36,95 +37,126 @@ class _SettingPageState extends State<SettingPage> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        title: Text(
-          "Settings",
-        ),
-        leading: IconButton(
-          onPressed: (){
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) {
-              return TabPage();
-            }));
-          },
-          icon: Icon(Icons.arrow_back,
-          color: Colors.white,),
-        ),
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(10),
-        child: ListView(
-          children: [
-            SizedBox(height: 30),
-            Row(
-              children: [
-                Icon(Icons.person, color: Colors.blue,),
-                SizedBox(width: 15,),
-                Text("Account", style: TextStyle(fontSize: 23),)
-              ],
+    return BlocListener<AuthBloc,AuthState>(
+      listener: (context,state) {
+        if (state is UnAuthenticated) {
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                  builder: (context) => Login()
+              ),
+                  (Route<dynamic> route) => false
+          );
+        }
+      },
+        child: BlocBuilder<AuthBloc,AuthState>(
+          builder: (context,state)
+    {
+      if (state is Authenticated) {
+        return Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.blue,
+              title: Text(
+                "Settings",
+              ),
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) {
+                    return TabPage();
+                  }));
+                },
+                icon: Icon(Icons.arrow_back,
+                  color: Colors.white,),
+              ),
             ),
-            Divider(
-              height: 20,
-              thickness: 1,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            buildAccountOption(context, "Change Password"),
-            buildAccountOption(context, "Content Settings"),
-            buildAccountOption(context, "Social"),
-            buildAccountOption(context, "Language"),
-            buildAccountOption(context, "Privacy and Security"),
-            SizedBox(
-              height: 30,
-            ),
-            Row(
-              children: [
-                Icon(Icons.volume_up_outlined, color: Colors.blue,),
-                SizedBox(width: 15),
-                Text("Notifications", style: TextStyle(
-                  fontSize: 23,
-                ),)
-              ],
-            ),
-            Divider(height: 20, thickness: 1,),
-            SizedBox(height: 10,),
-            GestureDetector(
-                child: buildNotification("Theme Dark", varNotify1, onChangeFuntion1),
-            //DankMode
-            onTap: () {
-                 setState(() {
-                   if (varNotify1 == true){
-                     ChangeThemeButton();
-                   }
-                 });
-            },
-            ),
-            buildNotification("Account Active", varNotify2, onChangeFuntion2),
-            buildNotification("Opportunity", varNotify3, onChangeFuntion3),
-            SizedBox(
-              height: 30,
-            ),
-            Center(
-              child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
-                  backgroundColor: Colors.blueAccent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)
+            body: Container(
+              padding: const EdgeInsets.all(10),
+              child: ListView(
+                children: [
+                  SizedBox(height: 30),
+                  Row(
+                    children: [
+                      Icon(Icons.person, color: Colors.blue,),
+                      SizedBox(width: 15,),
+                      Text("Account", style: TextStyle(fontSize: 23),)
+                    ],
+                  ),
+                  Divider(
+                    height: 20,
+                    thickness: 1,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  buildAccountOption(context, "Change Password"),
+                  buildAccountOption(context, "Content Settings"),
+                  buildAccountOption(context, "Social"),
+                  buildAccountOption(context, "Language"),
+                  //buildAccountOption(context, "Privacy and Security"),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    children: [
+                      Icon(Icons.volume_up_outlined, color: Colors.blue,),
+                      SizedBox(width: 15),
+                      Text("Notifications", style: TextStyle(
+                        fontSize: 23,
+                      ),)
+                    ],
+                  ),
+                  Divider(height: 20, thickness: 1,),
+                  SizedBox(height: 10,),
+                  GestureDetector(
+                    child: buildNotification(
+                        "Theme Dark", varNotify1, onChangeFuntion1),
+                    //DankMode
+                    onTap: () {
+                      setState(() {
+                        if (varNotify1 == true) {
+                          ChangeThemeButton();
+                        }
+                      });
+                    },
+                  ),
+                  buildNotification(
+                      "Account Active", varNotify2, onChangeFuntion2),
+                  buildNotification(
+                      "Opportunity", varNotify3, onChangeFuntion3),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Center(
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 40),
+                            backgroundColor: Colors.blueAccent,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)
+                            )
+                        ),
+                        onPressed: () {
+                          context.read<AuthBloc>().add(
+                              SignOutRequested());
+                        },
+                        child: Text("SIGN OUT", style: TextStyle(
+                            fontSize: 15,
+                            letterSpacing: 2.2,
+                            color: Colors.white
+                        ),),
+                      )
                   )
-                ),
-                onPressed: (){},
-                child: Text("SIGN OUT", style: TextStyle(
-                  fontSize: 15, letterSpacing: 2.2, color: Colors.white
-                ),),
-              )
+                ],
+              ),
             )
-          ],
-        ),
-      )
+        );
+      }
+      else {
+        return Center(child: CircularProgressIndicator());
+      }
+    })
+
     );
   }
   Padding buildNotification(String title, bool value, Function onChangeMethod){
