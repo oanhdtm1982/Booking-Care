@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 class History extends StatelessWidget {
   History({Key? key}) : super(key: key);
-  List<String> doctors = ["Helmet Tica","Oanh xinh dep", "Dung dep trai"];
+  List<String> doctors = ["Helmet Tica","UIT", "MMTT"];
   List<IconData> icons = [
     Icons.person,
     Icons.folder_special,
@@ -35,7 +35,7 @@ class History extends StatelessWidget {
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
                         colors: [
-                      Colors.white10,
+                      Colors.lightBlueAccent,
                       Colors.blue,
                     ]),
                     borderRadius: BorderRadius.circular(10),
@@ -45,8 +45,7 @@ class History extends StatelessWidget {
                     alignment: Alignment.center,
                     child: Text("Information",style: TextStyle(
                       fontSize: 20,
-                      //fontWeight: FontWeight.bold,
-                      fontFamily: "Helvetica",
+                      //fontFamily: "Helvetica",
                       color: Colors.black
                     ),
                     ),
@@ -88,8 +87,8 @@ class DoctorInformation extends StatelessWidget {
             Spacer(),
             Text(doctors,
               style: TextStyle(
-                fontFamily: "Helvetica",
-                fontWeight: FontWeight.w500,
+                /*fontFamily: "Helvetica",*/
+               //fontWeight: FontWeight.w300,
                 fontSize: 18,
               ),
             ),

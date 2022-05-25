@@ -1,5 +1,6 @@
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/Login.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Setting/ChangeButtonDarkMode.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Setting/privacy_and_security.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -92,7 +93,8 @@ class _SettingPageState extends State<SettingPage> {
                   buildAccountOption(context, "Content Settings"),
                   buildAccountOption(context, "Social"),
                   buildAccountOption(context, "Language"),
-                  //buildAccountOption(context, "Privacy and Security"),
+                  buildAccountOption(context, "Privacy and Security"),
+
                   SizedBox(
                     height: 30,
                   ),
@@ -100,7 +102,7 @@ class _SettingPageState extends State<SettingPage> {
                     children: [
                       Icon(Icons.volume_up_outlined, color: Colors.blue,),
                       SizedBox(width: 15),
-                      Text("Notifications", style: TextStyle(
+                      Text("Other", style: TextStyle(
                         fontSize: 23,
                       ),)
                     ],
@@ -184,25 +186,17 @@ class _SettingPageState extends State<SettingPage> {
   GestureDetector buildAccountOption (BuildContext context, String title){
     return GestureDetector(
       onTap: (){
-        showDialog(context: context, builder: (context){
-          return AlertDialog(
-            title: Text(title),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text("Option 1"),
-                Text("Option 2"),
-              ],
-            ),
-            actions: [
-              TextButton(
-                  onPressed: (){
-                    Navigator.of(context).pop();
-                  },
-                  child: Text("Close") )
-            ],
+        if (title == "Privacy and Security"){
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                  builder: (context) => PrivacyAndSecurity()
+              ),
+                  (Route<dynamic> route) => false
           );
-        });
+        }
+        else {
+
+        }
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),

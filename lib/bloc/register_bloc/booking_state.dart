@@ -11,9 +11,10 @@ class BookingLoading extends BookingState{}
 
 class BookingLoaded extends BookingState{
   final List<Booking> books;
-  BookingLoaded(this.books);
+  final List<Speciality> spec;
+  BookingLoaded(this.books,this.spec);
   @override
-  List<Object> get props => [books];
+  List<Object> get props => [books,spec];
 }
 
 class UnLoadedBooking extends BookingState{

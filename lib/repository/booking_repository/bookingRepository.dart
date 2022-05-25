@@ -1,3 +1,4 @@
+import 'package:doanchuyennganh/Models/Speciality.dart';
 import 'package:doanchuyennganh/repository/booking_repository/base_booking_repository.dart';
 import 'package:doanchuyennganh/services/BookingService/BookingService.dart';
 
@@ -8,5 +9,8 @@ class BookingRepository extends BaseBookingRepository{
   @override
   Future<List<Booking>> getAllBooking() async{
     return service.retrieveBookingData();
+  }
+  Future<List<Speciality>> getAllSpeciality() async{
+    return service.retrieveSpecialityData();
   }
 }

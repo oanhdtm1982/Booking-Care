@@ -1,26 +1,28 @@
-import 'package:doanchuyennganh/Models/Speciality.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Booking/Register.dart';
 import 'package:doanchuyennganh/widgets/SpecialtyTitle.dart';
-import 'package:doanchuyennganh/Screens/Welcome/Components/Notification/NotificationDetail.dart';
 import 'package:flutter/material.dart';
 
-class SpecialtyOption extends StatefulWidget {
-  SpecialtyOption({
-    required this.specialities,
+import '../../../../Models/Speciality.dart';
+
+class DoctorOption extends StatefulWidget {
+  DoctorOption({
+    required this.doctor_show,
+    required this.doctors,
     Key? key}) : super(key: key);
-  List<Speciality> specialities;
+  List<String> doctors;
+  String doctor_show;
+
   @override
-  State<SpecialtyOption> createState() => _SpecialtyOptionState();
+  State<DoctorOption> createState() => _DoctorOptionState();
 }
 
-class _SpecialtyOptionState extends State<SpecialtyOption> {
-
+class _DoctorOptionState extends State<DoctorOption> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Text("Speciatly",),
+        title: Text("Doctors",),
         leading: IconButton(
           onPressed: () {
             Navigator.push(
@@ -38,15 +40,20 @@ class _SpecialtyOptionState extends State<SpecialtyOption> {
           itemBuilder: (context, index){
             return SpeciatlyTitle(
               image: 'assets/images/icon.png',
-              title: widget.specialities[index].spec_name,
+              title: widget.doctors[index],
               enable: true,
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterPage())),
+              onTap: () {
+                setState(() {
+                  widget.doctor_show = widget.doctors[index];
+                });
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterPage()));
+              }
             );
           },
           separatorBuilder: (context, index){
             return Divider();
           },
-          itemCount: widget.specialities.length),
+          itemCount: widget.doctors.length),
     );
   }
 }

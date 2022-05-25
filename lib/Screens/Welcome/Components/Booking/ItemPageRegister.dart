@@ -1,12 +1,14 @@
-import 'package:doanchuyennganh/Models/Booking.dart';
+import 'package:doanchuyennganh/Models/Speciality.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Booking/SpecialtyOption.dart';
 import 'package:doanchuyennganh/Screens/prefixIcon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../bloc/register_bloc/booking_bloc.dart';
+import '../../../../widgets/doctors.dart';
 import 'MapScreen.dart';
 class ItemPage extends StatelessWidget {
-  const ItemPage({Key? key}) : super(key: key);
+  const ItemPage({
+    Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -163,27 +165,13 @@ class ItemPage extends StatelessWidget {
                           ),
                           onTap: () {
                             Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => SpecialtyOption()));
+                                builder: (context) => SpecialtyOption(specialities: state.spec)));
                           },
                         )
                       ]),
                       SizedBox(height: 20.0),
                       //DayRegister
-                      Row(children: <Widget>[
-                        PrefixIcon(iconData: Icons.date_range),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text('Day register & Doctor',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 15.0,
-                                    color: Colors.grey)),
-                            SizedBox(height: 1),
-                            Text('00-00-0000 & Nguyen Van A')
-                          ],
-                        )
-                      ]),
+                      Doctors(doctors: state.spec[1].list_doctors,doctor_display: state.spec[1].list_doctors[1]),
                       SizedBox(height: 20.0),
                       Center(
                           child: OutlinedButton(

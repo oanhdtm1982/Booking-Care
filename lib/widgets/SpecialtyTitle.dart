@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 class SpeciatlyTitle extends StatelessWidget {
   const SpeciatlyTitle({Key? key,
     required this.title,
-    required this.subTitle,
+    required this.image,
     required this.onTap,
     required this.enable}) : super(key: key);
-  final String title;
-  final String subTitle;
+  final String title,image;
   final VoidCallback onTap;
   final bool enable;
   @override
@@ -18,7 +17,7 @@ class SpeciatlyTitle extends StatelessWidget {
         width: 40.0,
         decoration: BoxDecoration(
             image: DecorationImage(image: AssetImage(
-                'assets/images/icon.png'
+                image
             ),
                 fit: BoxFit.cover)
         ),
@@ -27,12 +26,6 @@ class SpeciatlyTitle extends StatelessWidget {
           color: Colors.blueAccent,
           fontSize: 19
       ),),
-      subtitle: Text(
-        subTitle,
-        style: TextStyle(
-          color: Colors.black,
-        ),
-      ),
       onTap: onTap,
       enabled: enable,
     );
