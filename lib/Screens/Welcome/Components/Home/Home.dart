@@ -24,7 +24,7 @@ class BodyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     int _index = 0;
     bool _isChecked = false;
-    final user = FirebaseAuth.instance.currentUser;
+    final user = FirebaseAuth.instance.currentUser!;
     return BlocListener<BannerBloc, BannerState>(
         listener: (context, state) {
           if (state is BannerError) {
@@ -75,8 +75,17 @@ class BodyHomePage extends StatelessWidget {
                                       Navigator.push(context, MaterialPageRoute(
                                           builder: (context) => EditAccount()));
                                     },
-                                    child: Image.asset(
-                                      "assets/images/avatar.png",)),
+                                    child: Container(
+                                      width: 80,
+                                      height: 80,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle
+                                      ),
+                                      child: 
+                                      user.photoURL != null ?
+                                      Image.network(
+                                        user.photoURL!,fit: BoxFit.cover,) : Image.asset("assets/images/avatar.png"),
+                                    )),
                                 Padding(
                                   padding: const EdgeInsets.all(20.0),
                                   child: Text("Hello, \n${

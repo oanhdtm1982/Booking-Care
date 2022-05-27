@@ -6,12 +6,15 @@ import '../../../../Models/Speciality.dart';
 
 class DoctorOption extends StatefulWidget {
   DoctorOption({
+    required this.index_spec,
+    this.index_doc = 0,
     required this.doctor_show,
     required this.doctors,
     Key? key}) : super(key: key);
   List<String> doctors;
   String doctor_show;
-
+  int index_doc;
+  int index_spec;
   @override
   State<DoctorOption> createState() => _DoctorOptionState();
 }
@@ -44,9 +47,10 @@ class _DoctorOptionState extends State<DoctorOption> {
               enable: true,
               onTap: () {
                 setState(() {
+                  widget.index_doc = index;
                   widget.doctor_show = widget.doctors[index];
                 });
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterPage()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterPage(id_doc: widget.index_doc,id_spec: widget.index_spec)));
               }
             );
           },

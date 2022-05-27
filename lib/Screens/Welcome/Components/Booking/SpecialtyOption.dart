@@ -1,14 +1,15 @@
 import 'package:doanchuyennganh/Models/Speciality.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Booking/Register.dart';
 import 'package:doanchuyennganh/widgets/SpecialtyTitle.dart';
-import 'package:doanchuyennganh/Screens/Welcome/Components/Notification/NotificationDetail.dart';
 import 'package:flutter/material.dart';
 
 class SpecialtyOption extends StatefulWidget {
   SpecialtyOption({
+    this.index = 0,
     required this.specialities,
     Key? key}) : super(key: key);
   List<Speciality> specialities;
+  int index = 0;
   @override
   State<SpecialtyOption> createState() => _SpecialtyOptionState();
 }
@@ -40,7 +41,12 @@ class _SpecialtyOptionState extends State<SpecialtyOption> {
               image: 'assets/images/icon.png',
               title: widget.specialities[index].spec_name,
               enable: true,
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterPage())),
+              onTap: (){
+                setState(() {
+                  widget.index = index;
+                });
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterPage(id_spec: widget.index)));
+              }
             );
           },
           separatorBuilder: (context, index){

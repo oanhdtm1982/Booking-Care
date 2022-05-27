@@ -5,11 +5,13 @@ import '../Screens/prefixIcon.dart';
 
 class Doctors extends StatelessWidget {
   Doctors({
+    required this.id_spec,
     required this.doctor_display,
     required this.doctors,
     Key? key}) : super(key: key);
   List<String> doctors;
   String doctor_display;
+  int id_spec;
   @override
   Widget build(BuildContext context) {
     return Row(children: <Widget>[
@@ -26,6 +28,7 @@ class Doctors extends StatelessWidget {
           InkWell(child: Text(doctor_display),
           onTap: () => Navigator.push(context, MaterialPageRoute(
               builder: (context) => DoctorOption(
+                index_spec: id_spec,
                 doctors: doctors,
                 doctor_show: doctor_display,
               ))

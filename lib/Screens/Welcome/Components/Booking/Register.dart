@@ -5,8 +5,12 @@ import 'package:flutter/material.dart';
 import 'ItemPageRegister.dart';
 
 class RegisterPage extends StatelessWidget {
-  const RegisterPage({Key? key}) : super(key: key);
-
+  RegisterPage({
+    this.id_spec = 0,
+    this.id_doc = 0,
+    Key? key}) : super(key: key);
+  int id_spec;
+  int id_doc;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +28,7 @@ class RegisterPage extends StatelessWidget {
             color: Colors.white,),
         ),
       ),
-      body: ItemPage(),
+      body: ItemPage(id_spec: id_spec,id_doc: id_doc),
     );
   }
 }

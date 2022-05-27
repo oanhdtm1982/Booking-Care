@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
-class Avatar extends StatefulWidget {
-  const Avatar({
+class AvatarEmail extends StatefulWidget {
+  const AvatarEmail({
     required this.path,
     Key? key}) : super(key: key);
   final String path;
   @override
-  State<Avatar> createState() => _AvatarState();
+  State<AvatarEmail> createState() => _AvatarEmailState();
 }
 
-class _AvatarState extends State<Avatar> {
+class _AvatarEmailState extends State<AvatarEmail> {
   File? _image;
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class _AvatarState extends State<Avatar> {
                   )
                 ],
               ),
-              child: Image.network(widget.path,fit: BoxFit.fill),
+              child: Image.asset(widget.path,fit: BoxFit.fill),
             ),
           ),
           Positioned(
