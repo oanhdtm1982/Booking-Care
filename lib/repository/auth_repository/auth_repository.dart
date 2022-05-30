@@ -21,6 +21,21 @@ class AuthRepository {
       throw Exception(e.toString());
     }
   }
+  @override
+  Future<bool> validatePassword(String password) async {
+    final firebaseUser = await _firebaseAuth.currentUser!;
+    final authCredentials = EmailAuthProvider.credential(
+        email: firebaseUser.email!,
+        password: password);
+    try {
+      var authResult = await firebaseUser.reauthenticateWithCredential(
+          authCredentials);
+      return authResult.user != null;
+    }catch(e){
+      print(e.toString());
+      return false;
+    }
+  }
 
   @override
   Future<void> signIn({required String email, required String password}) async {

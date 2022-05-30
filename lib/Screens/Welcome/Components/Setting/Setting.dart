@@ -1,16 +1,17 @@
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/Login.dart';
-import 'package:doanchuyennganh/Screens/Welcome/Components/Setting/ChangeButtonDarkMode.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Setting/change_password.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Setting/privacy_and_security.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Tab.dart';
+import 'package:doanchuyennganh/cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import '../../../../bloc/auth_bloc/auth_bloc.dart';
-import 'DarkMode.dart';
 
 class SettingPage extends StatefulWidget {
-  const SettingPage({Key? key}) : super(key: key);
+  SettingPage({
+    Key? key}) : super(key: key);
   @override
   State<SettingPage> createState() => _SettingPageState();
 }
@@ -109,16 +110,18 @@ class _SettingPageState extends State<SettingPage> {
                   ),
                   Divider(height: 20, thickness: 1,),
                   SizedBox(height: 10,),
-                  GestureDetector(
-                    child: buildNotification(
-                        "Theme Dark", varNotify1, onChangeFuntion1),
-                    //DankMode
-                    onTap: () {
-                      setState(() {
-                        if (varNotify1 == true) {
-                          ChangeThemeButton();
-                        }
-                      });
+                  BlocBuilder<ThemeCubit,bool>(
+                    builder: (context,state){
+                      return SwitchListTile(
+                          title: Text("Dark Mode",style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.grey[600]
+                          ),),
+                          value: state,
+                          onChanged: (value){
+                            BlocProvider.of<ThemeCubit>(context).toggleTheme(value: value);
+                          });
                     },
                   ),
                   buildNotification(
@@ -194,6 +197,15 @@ class _SettingPageState extends State<SettingPage> {
                   (Route<dynamic> route) => false
           );
         }
+        else if (title == "Change Password")
+          {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                    builder: (context) => ChangePassword()
+                ),
+                    (Route<dynamic> route) => false
+            );
+          }
         else {
 
         }

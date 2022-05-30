@@ -45,7 +45,6 @@ class History extends StatelessWidget {
                     alignment: Alignment.center,
                     child: Text("Information",style: TextStyle(
                       fontSize: 20,
-                      //fontFamily: "Helvetica",
                       color: Colors.black
                     ),
                     ),

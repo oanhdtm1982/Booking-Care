@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 
 class TabPage extends StatefulWidget {
   static String routeName = '/Tab';
-  TabPage({Key? key}) : super(key: key);
+  TabPage({
+    Key? key}) : super(key: key);
   @override
   State<TabPage> createState() => _TabState();
 }

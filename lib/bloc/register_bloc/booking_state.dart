@@ -16,7 +16,6 @@ class BookingLoaded extends BookingState{
   @override
   List<Object> get props => [books,spec];
 }
-
 class UnLoadedBooking extends BookingState{
   @override
   List<Object> get props => [];

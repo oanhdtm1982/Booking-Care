@@ -1,6 +1,7 @@
 import 'package:doanchuyennganh/Screens/Welcome/Components/Tab.dart';
 import 'package:doanchuyennganh/Screens/prefixIcon.dart';
 import 'package:doanchuyennganh/bloc/register_bloc/booking_bloc.dart';
+import 'package:doanchuyennganh/widgets/BuildForm.dart';
 import 'package:doanchuyennganh/widgets/avatar.dart';
 import 'package:doanchuyennganh/widgets/birth_day.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,6 +18,9 @@ class EditAccount extends StatefulWidget {
 }
 
 class _EditAccountState extends State<EditAccount> {
+  final _idController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -85,38 +89,21 @@ class _EditAccountState extends State<EditAccount> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(height: 20.0),
-          _buildForm("ID",id,Icons.airline_seat_individual_suite),
+          BuildForm(
+              controller: _idController,
+              title: "ID",text: id,icondata: Icons.airline_seat_individual_suite),
           SizedBox(height: 20.0),
-          _buildForm("Email",email, Icons.email),
+          BuildForm(
+              controller: _emailController,
+              title: "Email",text: email,icondata: Icons.email),
           SizedBox(height: 20.0),
-          _buildForm("Phone Number",phoneNum, Icons.phone),
+          BuildForm(
+              controller: _phoneController,
+              title: "Phone Number",text: phoneNum,icondata: Icons.phone),
           SizedBox(height: 20.0),
           BirthDay(birthday: birthday),
           SizedBox(height: 20.0),
         ],
-      ),
-    );
-  }
-  _buildForm(String title,String text,IconData icondata) {
-    return TextFormField(
-      decoration: InputDecoration(
-        // Để mail lúc đăng kí, không edit được
-        labelText:title,
-        labelStyle: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 20.0,
-            color: Colors.grey
-        ),
-        hintText: text,
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        border: InputBorder.none,
-        focusedBorder: InputBorder.none,
-        enabledBorder: InputBorder.none,
-        errorBorder: InputBorder.none,
-        disabledBorder: InputBorder.none,
-        contentPadding:
-        EdgeInsets.only(left: 0, bottom: 11, top: 11, right: 15),
-        icon: PrefixIcon(iconData: icondata),
       ),
     );
   }

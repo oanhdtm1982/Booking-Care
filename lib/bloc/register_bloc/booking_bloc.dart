@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:doanchuyennganh/Models/Booking.dart';
+import 'package:doanchuyennganh/Models/BookingRegister.dart';
 import 'package:doanchuyennganh/Models/Speciality.dart';
 import 'package:doanchuyennganh/repository/booking_repository/bookingRepository.dart';
 import 'package:equatable/equatable.dart';

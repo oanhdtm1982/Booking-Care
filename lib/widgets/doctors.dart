@@ -15,7 +15,7 @@ class Doctors extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(children: <Widget>[
-      PrefixIcon(iconData: Icons.date_range),
+      PrefixIcon(iconData: Icons.person_pin),
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

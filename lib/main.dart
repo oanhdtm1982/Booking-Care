@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:doanchuyennganh/Screens/Welcome/Components/Setting/DarkMode.dart';
 import 'package:doanchuyennganh/Screens/welcome_screen.dart';
 import 'package:doanchuyennganh/bloc/auth_bloc/auth_bloc.dart';
 import 'package:doanchuyennganh/bloc/banner_bloc/banner_bloc.dart';
+import 'package:doanchuyennganh/bloc/bookRegister/book_reg_bloc.dart';
 import 'package:doanchuyennganh/bloc/register_bloc/booking_bloc.dart';
+import 'package:doanchuyennganh/cubit/theme_cubit.dart';
 import 'package:doanchuyennganh/repository/auth_repository/auth_repository.dart';
 import 'package:doanchuyennganh/repository/banner_repository/bannerRepository.dart';
 import 'package:doanchuyennganh/repository/booking_repository/bookingRepository.dart';
@@ -12,16 +13,22 @@ import 'package:doanchuyennganh/widgets/AppBlocObserver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  final _storage = await HydratedStorage.build(storageDirectory: await getApplicationDocumentsDirectory());
   await Firebase.initializeApp();
-  BlocOverrides.runZoned(() => runApp(
+  BlocOverrides.runZoned(() => HydratedBlocOverrides.runZoned(() => runApp(
     MaterialApp(
       home: MyApp(),
     ),),
-    blocObserver: AppBlocObserver(),
+    storage: _storage
+  ),
+    blocObserver: AppBlocObserver()
   );
+
 }
 
 class MyApp extends StatelessWidget {
@@ -35,16 +42,24 @@ class MyApp extends StatelessWidget {
     ], child:
       MultiBlocProvider(
         providers: [
+          BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
           BlocProvider(create: (context) => AuthBloc(authRepository: RepositoryProvider.of<AuthRepository>(context))),
           BlocProvider(create: (context) => BookingBloc(bookingRepository: RepositoryProvider.of<BookingRepository>(context))..add(LoadBooking())),
           BlocProvider(create: (context) => BannerBloc(bannerRepository: RepositoryProvider.of<BannerRepository>(context))..add(LoadBanner())),
-      ], child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Đồ Án Chuyên Ngành',
-        theme: MyThemes.lightTheme,
-        darkTheme: MyThemes.darkTheme,
-        home: WelcomeScreen(),
-        //home: TabPage(),
+          BlocProvider(create: (context) => BookRegBloc(bookingRepository: RepositoryProvider.of<BookingRepository>(context))..add(LoadBookingReg())),
+      ], child: BlocBuilder<ThemeCubit,bool>(
+        builder: (context,state){
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Đồ Án Chuyên Ngành',
+            themeMode: state ? ThemeMode.dark : ThemeMode.light,
+            darkTheme: ThemeData.dark(),
+            home: WelcomeScreen(),
+            theme: ThemeData(
+              primarySwatch: Colors.blue
+            ),
+          );
+        }
       ),)
     );
   }

@@ -6,9 +6,12 @@ import '../Screens/prefixIcon.dart';
 class BirthDay extends StatefulWidget {
   BirthDay({
     required this.birthday,
+    this.leftPos = 15.0,
+    this.title = "Birthday",
     Key? key}) : super(key: key);
   DateTime birthday;
-
+  final double leftPos;
+  final String title;
   @override
   State<BirthDay> createState() => _BirthDayState();
 }
@@ -21,7 +24,7 @@ class _BirthDayState extends State<BirthDay> {
         firstDate: DateTime(1950, 3, 5),
         lastDate: DateTime(
             DateTime.now().year,
-            DateTime.now().month,
+            DateTime.now().month+1,
             DateTime.now().day));
     if (picked != null && picked != widget.birthday)
       setState(() {
@@ -34,11 +37,11 @@ class _BirthDayState extends State<BirthDay> {
       PrefixIcon(iconData: Icons.date_range),
       GestureDetector(
         child: Padding(
-          padding: const EdgeInsets.only(left: 15, bottom: 0, top: 0, right: 15),
+          padding: EdgeInsets.only(left: widget.leftPos),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('Birth date',
+              Text(widget.title,
                   style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 15.0,

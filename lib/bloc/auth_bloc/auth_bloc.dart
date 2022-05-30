@@ -46,6 +46,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(UnAuthenticated());
       }
     });
+    on<ValidateCurrentPasswordRequested>((event,emit) async{
+      emit(Loading());
+      try{
+        await authRepository.validatePassword(event.password);
+        emit(Authenticated());
+      }catch(e){
+        emit(AuthError(e.toString()));
+        emit(UnAuthenticated());
+      }
+    });
     // When User Presses the SignOut Button, we will send the SignOutRequested Event to the AuthBloc to handle it and emit the UnAuthenticated State
     on<SignOutRequested>((event, emit) async {
       emit(Loading());

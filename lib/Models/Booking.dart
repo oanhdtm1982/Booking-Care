@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doanchuyennganh/Models/BookingRegister.dart';
 import 'package:equatable/equatable.dart';
 
 class Booking extends Equatable{

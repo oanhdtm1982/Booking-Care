@@ -96,11 +96,13 @@ class BodyHomePage extends StatelessWidget {
                                       fontSize: 22
                                   ),),
                                 ),
+
                               ]),
                         )
                     ),
                     SizedBox(height: 25,),
                     Categories(),
+
                     SizedBox(height: 30,),
                     InfoCard(list_banner: state.banners, index_Card: _index,isCheck: _isChecked),
                   ],
