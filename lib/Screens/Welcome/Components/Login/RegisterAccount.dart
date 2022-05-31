@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/Login.dart';
 import 'package:doanchuyennganh/bloc/auth_bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import '../Setting/ThemeHelper.dart';
 import 'Header.dart';
 
@@ -19,11 +22,25 @@ class _RegisterAccountState extends State<RegisterAccount> {
   bool checkboxValue = false;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
+  File? imageFile;
+  Future<void>_openGallary(BuildContext context) async {
+    XFile? picture = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      maxHeight: 1080,
+      maxWidth: 1080,
+    );
+    setState(() {
+      imageFile = File(picture!.path);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text("Register Account"),
+        leading: IconButton(icon: Icon(Icons.arrow_back),onPressed: ()=>Navigator.of(context).pop()),
+      ),
       body: BlocListener<AuthBloc,AuthState>(
         listener: (context,state) {
           if(state is Authenticated){
@@ -63,22 +80,15 @@ class _RegisterAccountState extends State<RegisterAccount> {
                               GestureDetector(
                                 child: Stack(
                                   children: [
-                                    Container(
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(100),
-                                        border: Border.all(
-                                            width: 5, color: Colors.white),
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.black12,
-                                            blurRadius: 20,
-                                            offset: const Offset(5, 5),
-                                          ),
-                                        ],
-                                      ),
-                                      child: Icon(
+                                    GestureDetector(
+                                      onTap: (){
+                                        _openGallary(context);
+                                      },
+                                      child: imageFile != null ? Image.file(imageFile!,
+                                          width: 100,height: 100,
+                                          fit: BoxFit.cover
+                                      ) :
+                                      Icon(
                                         Icons.person,
                                         color: Colors.grey.shade300,
                                         size: 80.0,
@@ -120,7 +130,7 @@ class _RegisterAccountState extends State<RegisterAccount> {
                               Container(
                                 child: TextFormField(
                                   controller: _emailController,
-                                  onChanged: (value) => _emailController.text = value!,
+                                  onSaved: (value) => _emailController.text = value!,
                                   decoration: ThemeHelper().textInputDecoration("E-mail address", "Enter your email"),
                                   keyboardType: TextInputType.emailAddress,
                                   validator: (val) {

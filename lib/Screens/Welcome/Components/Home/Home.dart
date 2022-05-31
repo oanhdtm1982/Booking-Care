@@ -84,7 +84,7 @@ class BodyHomePage extends StatelessWidget {
                                       child: 
                                       user.photoURL != null ?
                                       Image.network(
-                                        user.photoURL!,fit: BoxFit.cover,) : Image.asset("assets/images/avatar.png"),
+                                        user.photoURL!,fit: BoxFit.cover) : Image.asset("assets/images/avatar.png"),
                                     )),
                                 Padding(
                                   padding: const EdgeInsets.all(20.0),

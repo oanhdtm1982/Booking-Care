@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 class SpecialtyOption extends StatefulWidget {
   SpecialtyOption({
     this.index = 0,
+    this.time = "",
     required this.specialities,
     Key? key}) : super(key: key);
   List<Speciality> specialities;
+  String time;
   int index = 0;
   @override
   State<SpecialtyOption> createState() => _SpecialtyOptionState();

@@ -4,11 +4,13 @@ import 'package:doanchuyennganh/Screens/welcome_screen.dart';
 import 'package:doanchuyennganh/bloc/auth_bloc/auth_bloc.dart';
 import 'package:doanchuyennganh/bloc/banner_bloc/banner_bloc.dart';
 import 'package:doanchuyennganh/bloc/bookRegister/book_reg_bloc.dart';
+import 'package:doanchuyennganh/bloc/email_bloc/email_bloc.dart';
 import 'package:doanchuyennganh/bloc/register_bloc/booking_bloc.dart';
 import 'package:doanchuyennganh/cubit/theme_cubit.dart';
 import 'package:doanchuyennganh/repository/auth_repository/auth_repository.dart';
 import 'package:doanchuyennganh/repository/banner_repository/bannerRepository.dart';
 import 'package:doanchuyennganh/repository/booking_repository/bookingRepository.dart';
+import 'package:doanchuyennganh/repository/email_repository/email_repository.dart';
 import 'package:doanchuyennganh/widgets/AppBlocObserver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,11 +41,13 @@ class MyApp extends StatelessWidget {
       RepositoryProvider(create: (context) =>AuthRepository()),
       RepositoryProvider(create: (context) => BookingRepository()),
       RepositoryProvider(create: (context) => BannerRepository()),
+      RepositoryProvider(create: (context) => EmailRepository()),
     ], child:
       MultiBlocProvider(
         providers: [
           BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
           BlocProvider(create: (context) => AuthBloc(authRepository: RepositoryProvider.of<AuthRepository>(context))),
+          BlocProvider(create: (context) => EmailBloc(emailRepository: RepositoryProvider.of<EmailRepository>(context))),
           BlocProvider(create: (context) => BookingBloc(bookingRepository: RepositoryProvider.of<BookingRepository>(context))..add(LoadBooking())),
           BlocProvider(create: (context) => BannerBloc(bannerRepository: RepositoryProvider.of<BannerRepository>(context))..add(LoadBanner())),
           BlocProvider(create: (context) => BookRegBloc(bookingRepository: RepositoryProvider.of<BookingRepository>(context))..add(LoadBookingReg())),

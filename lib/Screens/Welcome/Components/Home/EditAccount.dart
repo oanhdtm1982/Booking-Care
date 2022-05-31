@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:doanchuyennganh/Screens/Welcome/Components/Tab.dart';
 import 'package:doanchuyennganh/Screens/prefixIcon.dart';
 import 'package:doanchuyennganh/bloc/register_bloc/booking_bloc.dart';
@@ -7,6 +9,7 @@ import 'package:doanchuyennganh/widgets/birth_day.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../widgets/avatar_email_sign_in.dart';
 
@@ -21,7 +24,6 @@ class _EditAccountState extends State<EditAccount> {
   final _idController = TextEditingController();
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
@@ -60,7 +62,8 @@ class _EditAccountState extends State<EditAccount> {
                 child: ListView(
                   children: [
                     user.photoURL != null ?
-                    Avatar(path: user.photoURL!) : AvatarEmail(path: "assets/images/avatar.png"),
+                    Avatar(path: user.photoURL!)
+                        : AvatarEmail(path: "assets/images/avatar.png"),
                     SizedBox(
                       height: 20,
                     ),

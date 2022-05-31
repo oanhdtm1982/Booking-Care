@@ -14,29 +14,25 @@ class Avatar extends StatefulWidget {
 }
 
 class _AvatarState extends State<Avatar> {
-  File? _image;
+  File? imageFile;
+  Future<void>_openGallary(BuildContext context) async {
+    XFile? picture = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      maxHeight: 1080,
+      maxWidth: 1080,
+    );
+    setState(() {
+      imageFile = File(picture!.path);
+    });
+  }
   @override
   Widget build(BuildContext context) {
-    Future pickImage() async{
-      try {
-        final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-        if (image == null){
-          return;
-        }
-        final imageTemporary = File(image.path);
-        setState(() {
-          this._image = imageTemporary;
-        });
-      } on PlatformException catch (e){
-
-      }
-    }
     return Center(
       child: Stack(
         children: [
           GestureDetector(
             onTap: (){
-              pickImage();
+              _openGallary(context);
             },
             child: Container(
               width: 130,
@@ -51,7 +47,9 @@ class _AvatarState extends State<Avatar> {
                   )
                 ],
               ),
-              child: Image.network(widget.path,fit: BoxFit.fill),
+              child:
+              imageFile != null ? Image.file(imageFile!,fit: BoxFit.cover) :
+              Image.network(widget.path,fit: BoxFit.fill),
             ),
           ),
           Positioned(
