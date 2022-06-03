@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Login/AddInformation.dart';
 import 'package:doanchuyennganh/Screens/welcome_screen.dart';
 import 'package:doanchuyennganh/bloc/auth_bloc/auth_bloc.dart';
 import 'package:doanchuyennganh/bloc/banner_bloc/banner_bloc.dart';

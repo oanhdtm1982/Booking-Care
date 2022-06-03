@@ -19,6 +19,8 @@ class _SettingPageState extends State<SettingPage> {
   bool varNotify1 = false;
   bool varNotify2 = false;
   bool varNotify3 = false;
+  bool varNotify4 = false;
+
 
   onChangeFuntion1(bool newValue1){
     setState(() {
@@ -35,6 +37,11 @@ class _SettingPageState extends State<SettingPage> {
   onChangeFuntion3(bool newValue3){
     setState(() {
       varNotify3 = newValue3;
+    });
+  }
+  onChangeFuntion4(bool newValue4){
+    setState(() {
+      varNotify4 = newValue4;
     });
   }
   @override
@@ -110,7 +117,7 @@ class _SettingPageState extends State<SettingPage> {
                   ),
                   Divider(height: 20, thickness: 1,),
                   SizedBox(height: 10,),
-                  BlocBuilder<ThemeCubit,bool>(
+                  /*BlocBuilder<ThemeCubit,bool>(
                     builder: (context,state){
                       return SwitchListTile(
                           title: Text("Dark Mode",style: TextStyle(
@@ -123,11 +130,15 @@ class _SettingPageState extends State<SettingPage> {
                             BlocProvider.of<ThemeCubit>(context).toggleTheme(value: value);
                           });
                     },
-                  ),
+                  ),*/
                   buildNotification(
-                      "Account Active", varNotify2, onChangeFuntion2),
+                      "Doctor Account", varNotify1, onChangeFuntion1),
                   buildNotification(
-                      "Opportunity", varNotify3, onChangeFuntion3),
+                      "Dark Mode", varNotify2, onChangeFuntion2),
+                  buildNotification(
+                      "Account Active", varNotify3, onChangeFuntion3),
+                  buildNotification(
+                      "Opportunity", varNotify4, onChangeFuntion4),
                   SizedBox(
                     height: 30,
                   ),

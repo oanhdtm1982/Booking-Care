@@ -15,7 +15,7 @@ import 'Login/Login.dart';
       height: 100,
       width: 100,
       alignment: Alignment.center,),
-      loadingText: Text('Đồ Án Chuyên Ngành'),
+      loadingText: Text('Booking Care'),
       photoSize: 100,
       loaderColor: Colors.lightBlue,
     );

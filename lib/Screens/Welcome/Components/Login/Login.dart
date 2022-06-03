@@ -1,3 +1,4 @@
+import 'package:doanchuyennganh/Screens/Welcome/Components/Login/AddInformation.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/ForgotPasswordPage.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/RegisterAccount.dart';
 import 'package:doanchuyennganh/bloc/auth_bloc/auth_bloc.dart';
