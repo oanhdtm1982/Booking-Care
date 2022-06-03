@@ -1,4 +1,6 @@
 import 'package:doanchuyennganh/bloc/banner_bloc/banner_bloc.dart';
+import 'package:doanchuyennganh/bloc/register_bloc/booking_bloc.dart';
+import 'package:doanchuyennganh/widgets/CustomShowSnackBar.dart';
 import 'package:doanchuyennganh/widgets/webview_navigating.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +14,7 @@ class HomePage extends StatelessWidget {
   static String RouteName = "/Home";
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: BodyHomePage());
+    return Scaffold(body: BodyHomePage());
   }
 }
 
@@ -25,103 +26,109 @@ class BodyHomePage extends StatelessWidget {
     int _index = 0;
     bool _isChecked = false;
     final user = FirebaseAuth.instance.currentUser!;
-    return BlocListener<BannerBloc, BannerState>(
-        listener: (context, state) {
-          if (state is BannerError) {
-            Scaffold.of(context).showSnackBar(
-                SnackBar(content: Text("Banner is showing error")));
-          }
-          if (state is BannerLoaded) {
-            if(_isChecked == true){
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          WebViewNavigating(path: state.banners[_index].path)
-                  ),
-                      (Route<dynamic> route) => false
-              );
-            }
-          }
-        },
-        child: BlocBuilder<BannerBloc, BannerState>(
-          builder: (context, state) {
-            if (state is BannerLoaded) {
-              return SafeArea(child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                        margin: EdgeInsets.symmetric(
-                          horizontal: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0,
-                        ),
-                        width: double.infinity,
-                        height: 100,
-                        decoration: BoxDecoration(
-                          color: Colors.blueAccent,
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(30),
-                            bottomRight: Radius.circular(30),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(context, MaterialPageRoute(
-                                          builder: (context) => EditAccount()));
-                                    },
-                                    child: Container(
-                                      width: 80,
-                                      height: 80,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle
-                                      ),
-                                      child: 
-                                      user.photoURL != null ?
-                                      Image.network(
-                                        user.photoURL!,fit: BoxFit.cover) : Image.asset("assets/images/avatar.png"),
-                                    )),
-                                Padding(
-                                  padding: const EdgeInsets.all(20.0),
-                                  child: Text("Hello, \n${
-                                      user?.displayName != null ? user
-                                          ?.displayName : "Welcome back"
-                                  }", style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 22
-                                  ),),
-                                ),
-
-                              ]),
-                        )
+    return BlocListener<BannerBloc, BannerState>(listener: (context, state) {
+      if (state is BannerError) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: CustomSnackBarContent(errorText: "Error")));
+      }
+      if (state is BannerLoaded) {
+        if (_isChecked == true) {
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                  builder: (context) =>
+                      WebViewNavigating(path: state.banners[_index].path)),
+              (Route<dynamic> route) => false);
+        }
+      }
+    }, child: BlocBuilder<BannerBloc, BannerState>(
+      builder: (context, state) {
+        if (state is BannerLoaded) {
+          return SafeArea(
+              child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0,
                     ),
-                    SizedBox(height: 25,),
-                    Categories(),
-
-                    SizedBox(height: 30,),
-                    InfoCard(list_banner: state.banners, index_Card: _index,isCheck: _isChecked),
-                  ],
+                    width: double.infinity,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.blueAccent,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            GestureDetector(onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EditAccount()));
+                            }, child: BlocBuilder<BookingBloc, BookingState>(
+                              builder: (context, state) {
+                                if (state is UnLoadedBooking) {
+                                  return Center(
+                                      child: CircularProgressIndicator());
+                                }
+                                if (state is BookingLoaded) {
+                                  for (int i = 0; i < state.books.length; i++)
+                                    if (user.email == state.books[i].email)
+                                      return Container(
+                                        width: 80,
+                                        height: 80,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle),
+                                        child: user.photoURL != null
+                                            ? Image.network(user.photoURL!,
+                                                fit: BoxFit.cover)
+                                            : Image.network(
+                                                state.books[i].imagePath,
+                                                width: 80,
+                                                height: 80,
+                                                fit: BoxFit.cover,
+                                              ),
+                                      );
+                                  return Container();
+                                } else {
+                                  return Image.asset(
+                                      "assets/images/avatar.png");
+                                }
+                              },
+                            )),
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Text(
+                                "Hello, \n${user.displayName != null ? user.displayName : "Welcome back"}",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 22),
+                              ),
+                            ),
+                          ]),
+                    )),
+                SizedBox(
+                  height: 25,
                 ),
-              ));
-            }
-            else {
-              return Center(child: CircularProgressIndicator());
-            }
-          },
-        )
-    );
+                Categories(),
+                SizedBox(
+                  height: 30,
+                ),
+                InfoCard(
+                    list_banner: state.banners,
+                    index_Card: _index,
+                    isCheck: _isChecked),
+              ],
+            ),
+          ));
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
+    ));
   }
 }
-
-
-
-
-
-
-
-

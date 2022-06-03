@@ -4,10 +4,11 @@ import 'package:doanchuyennganh/Models/Speciality.dart';
 
 import '../../Models/Booking.dart';
 
-abstract class BaseBookingRepository{
+abstract class BaseBookingRepository {
   Future<List<Booking>> getAllBooking();
   Future<List<Doctor>> getAllDoctor();
   Future<List<Speciality>> getAllSpeciality();
   Future<List<BookingRegister>> getAllBookingRegister();
-  Future<void>addBookingRegister(BookingRegister bookReg);
+  Future<void> addBookingUser(Booking book);
+  Future<void> addBookingRegister(BookingRegister bookReg);
 }

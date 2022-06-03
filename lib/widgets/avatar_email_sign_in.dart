@@ -5,9 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AvatarEmail extends StatefulWidget {
-  const AvatarEmail({
-    required this.path,
-    Key? key}) : super(key: key);
+  const AvatarEmail({required this.path, Key? key}) : super(key: key);
   final String path;
   @override
   State<AvatarEmail> createState() => _AvatarEmailState();
@@ -15,7 +13,7 @@ class AvatarEmail extends StatefulWidget {
 
 class _AvatarEmailState extends State<AvatarEmail> {
   File? imageFile;
-  Future<void>_openGallary(BuildContext context) async {
+  Future<void> _openGallary(BuildContext context) async {
     XFile? picture = await ImagePicker().pickImage(
       source: ImageSource.gallery,
       maxHeight: 1080,
@@ -25,13 +23,14 @@ class _AvatarEmailState extends State<AvatarEmail> {
       imageFile = File(picture!.path);
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Stack(
         children: [
           GestureDetector(
-            onTap: (){
+            onTap: () {
               _openGallary(context);
             },
             child: Container(
@@ -43,12 +42,12 @@ class _AvatarEmailState extends State<AvatarEmail> {
                   BoxShadow(
                       spreadRadius: 2,
                       blurRadius: 10,
-                      color: Colors.black.withOpacity(0.1)
-                  )
+                      color: Colors.black.withOpacity(0.1))
                 ],
               ),
-              child: imageFile != null ? Image.file(imageFile!,fit: BoxFit.cover) :
-              Image.asset(widget.path,fit: BoxFit.fill),
+              child: imageFile != null
+                  ? Image.file(imageFile!, fit: BoxFit.cover)
+                  : Image.network(widget.path, fit: BoxFit.cover),
             ),
           ),
           Positioned(
@@ -59,14 +58,13 @@ class _AvatarEmailState extends State<AvatarEmail> {
                 width: 40,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(
-                      width: 4,
-                      color: Colors.white
-                  ),
+                  border: Border.all(width: 4, color: Colors.white),
                   color: Colors.blueAccent,
                 ),
-                child: Icon(Icons.edit,color: Colors.white,)
-            ),
+                child: Icon(
+                  Icons.edit,
+                  color: Colors.white,
+                )),
           ),
         ],
       ),

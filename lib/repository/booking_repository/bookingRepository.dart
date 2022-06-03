@@ -6,26 +6,35 @@ import 'package:doanchuyennganh/services/BookingService/BookingService.dart';
 import '../../Models/Booking.dart';
 import '../../Models/BookingRegister.dart';
 
-class BookingRepository extends BaseBookingRepository{
+class BookingRepository extends BaseBookingRepository {
   BookingService service = BookingService();
   @override
-  Future<List<Booking>> getAllBooking() async{
+  Future<List<Booking>> getAllBooking() async {
     return service.retrieveBookingData();
   }
+
   @override
-  Future<List<Speciality>> getAllSpeciality() async{
+  Future<List<Speciality>> getAllSpeciality() async {
     return service.retrieveSpecialityData();
   }
+
   @override
-  Future<List<Doctor>> getAllDoctor() async{
+  Future<List<Doctor>> getAllDoctor() async {
     return service.retrieveDoctorData();
   }
+
   @override
-  Future<List<BookingRegister>> getAllBookingRegister() async{
+  Future<List<BookingRegister>> getAllBookingRegister() async {
     return service.retrieveBookingRegData();
   }
+
   @override
-  Future<void>addBookingRegister(BookingRegister bookReg) async{
+  Future<void> addBookingUser(Booking book) async {
+    return await service.addBookingUserData(book);
+  }
+
+  @override
+  Future<void> addBookingRegister(BookingRegister bookReg) async {
     return await service.addBookingRegData(bookReg);
   }
 }

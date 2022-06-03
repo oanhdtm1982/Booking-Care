@@ -19,53 +19,76 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
-Future<void> main() async{
-  WidgetsFlutterBinding.ensureInitialized();
-  final _storage = await HydratedStorage.build(storageDirectory: await getApplicationDocumentsDirectory());
-  await Firebase.initializeApp();
-  BlocOverrides.runZoned(() => HydratedBlocOverrides.runZoned(() => runApp(
-    MaterialApp(
-      home: MyApp(),
-    ),),
-    storage: _storage
-  ),
-    blocObserver: AppBlocObserver()
-  );
+import 'bloc/book_add_register_user/book_reg_user_bloc.dart';
 
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final _storage = await HydratedStorage.build(
+      storageDirectory: await getApplicationDocumentsDirectory());
+  await Firebase.initializeApp();
+  BlocOverrides.runZoned(
+      () => HydratedBlocOverrides.runZoned(
+          () => runApp(
+                MaterialApp(
+                  home: MyApp(),
+                ),
+              ),
+          storage: _storage),
+      blocObserver: AppBlocObserver());
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context){
-    return MultiRepositoryProvider(providers: [
-      RepositoryProvider(create: (context) =>AuthRepository()),
-      RepositoryProvider(create: (context) => BookingRepository()),
-      RepositoryProvider(create: (context) => BannerRepository()),
-      RepositoryProvider(create: (context) => EmailRepository()),
-    ], child:
-      MultiBlocProvider(
+  Widget build(BuildContext context) {
+    return MultiRepositoryProvider(
         providers: [
-          BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
-          BlocProvider(create: (context) => AuthBloc(authRepository: RepositoryProvider.of<AuthRepository>(context))),
-          BlocProvider(create: (context) => EmailBloc(emailRepository: RepositoryProvider.of<EmailRepository>(context))),
-          BlocProvider(create: (context) => BookingBloc(bookingRepository: RepositoryProvider.of<BookingRepository>(context))..add(LoadBooking())),
-          BlocProvider(create: (context) => BannerBloc(bannerRepository: RepositoryProvider.of<BannerRepository>(context))..add(LoadBanner())),
-          BlocProvider(create: (context) => BookRegBloc(bookingRepository: RepositoryProvider.of<BookingRepository>(context))..add(LoadBookingReg())),
-      ], child: BlocBuilder<ThemeCubit,bool>(
-        builder: (context,state){
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Đồ Án Chuyên Ngành',
-            themeMode: state ? ThemeMode.dark : ThemeMode.light,
-            darkTheme: ThemeData.dark(),
-            home: WelcomeScreen(),
-            theme: ThemeData(
-              primarySwatch: Colors.blue
-            ),
-          );
-        }
-      ),)
-    );
+          RepositoryProvider(create: (context) => AuthRepository()),
+          RepositoryProvider(create: (context) => BookingRepository()),
+          RepositoryProvider(create: (context) => BannerRepository()),
+          RepositoryProvider(create: (context) => EmailRepository()),
+        ],
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
+            BlocProvider(
+                create: (context) => AuthBloc(
+                    authRepository:
+                        RepositoryProvider.of<AuthRepository>(context))),
+            BlocProvider(
+                create: (context) => BookRegUserBloc(
+                    bookingRepository:
+                        RepositoryProvider.of<BookingRepository>(context))),
+            BlocProvider(
+                create: (context) => EmailBloc(
+                    emailRepository:
+                        RepositoryProvider.of<EmailRepository>(context))),
+            BlocProvider(
+                create: (context) => BookingBloc(
+                    bookingRepository:
+                        RepositoryProvider.of<BookingRepository>(context))
+                  ..add(LoadBooking())),
+            BlocProvider(
+                create: (context) => BannerBloc(
+                    bannerRepository:
+                        RepositoryProvider.of<BannerRepository>(context))
+                  ..add(LoadBanner())),
+            BlocProvider(
+                create: (context) => BookRegBloc(
+                    bookingRepository:
+                        RepositoryProvider.of<BookingRepository>(context))
+                  ..add(LoadBookingReg())),
+          ],
+          child: BlocBuilder<ThemeCubit, bool>(builder: (context, state) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Đồ Án Chuyên Ngành',
+              themeMode: state ? ThemeMode.dark : ThemeMode.light,
+              darkTheme: ThemeData.dark(),
+              home: WelcomeScreen(),
+              theme: ThemeData(primarySwatch: Colors.blue),
+            );
+          }),
+        ));
   }
 }
