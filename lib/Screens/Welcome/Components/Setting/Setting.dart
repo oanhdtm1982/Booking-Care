@@ -131,8 +131,7 @@ class _SettingPageState extends State<SettingPage> {
                           });
                     },
                   ),*/
-                  buildNotification(
-                      "Doctor Account", varNotify1, onChangeFuntion1),
+                  
                   buildNotification(
                       "Dark Mode", varNotify2, onChangeFuntion2),
                   buildNotification(

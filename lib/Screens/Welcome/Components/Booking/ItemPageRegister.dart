@@ -256,6 +256,7 @@ class _ItemPageState extends State<ItemPage> {
                             docName: state.spec[widget.id_spec]
                                 .list_doctors[widget.id_doc]
                                 .toString(),
+                            isConfirm: false
                           );
                           for (int j = 0; j < state.doctors.length; j++) {
                             if (state.doctors[j].name ==

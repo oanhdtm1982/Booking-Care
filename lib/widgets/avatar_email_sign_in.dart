@@ -54,8 +54,8 @@ class _AvatarEmailState extends State<AvatarEmail> {
             bottom: 0,
             right: 0,
             child: Container(
-                height: 40,
-                width: 40,
+                height: 30,
+                width: 30,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(width: 4, color: Colors.white),
@@ -63,6 +63,7 @@ class _AvatarEmailState extends State<AvatarEmail> {
                 ),
                 child: Icon(
                   Icons.edit,
+                  size: 20,
                   color: Colors.white,
                 )),
           ),

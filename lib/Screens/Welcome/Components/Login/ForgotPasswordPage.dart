@@ -90,12 +90,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           children: <Widget>[
                             Container(
                               child: TextFormField(
-                                onChanged: (value) =>
-                                    _emailController.text = value,
-                                decoration: ThemeHelper().textInputDecoration(
-                                    "Email", "Enter your email"),
-                                validator: (val) {
-                                  if (val!.isEmpty) {
+                                onChanged: (value) => _emailController.text = value,
+                                decoration: ThemeHelper().textInputDecoration("Email", "Enter your email"),
+                                validator: (val){
+                                  if(val!.isEmpty){
                                     return "Email can't be empty";
                                   } else if (!RegExp(
                                           r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")

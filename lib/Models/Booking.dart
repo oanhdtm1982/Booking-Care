@@ -19,7 +19,7 @@ class Booking extends Equatable {
     required this.email,
   });
   @override
-  List<Object?> get props => [id, phone, name, gender, birthday, imagePath];
+  List<Object?> get props => [id, phone,email, name, gender, birthday, imagePath];
   static Booking fromJson(Map<String, dynamic> json) {
     Booking booking = Booking(
       imagePath: json["imagePath"],

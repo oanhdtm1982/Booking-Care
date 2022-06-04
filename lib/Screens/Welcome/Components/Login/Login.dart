@@ -1,7 +1,12 @@
+import 'package:doanchuyennganh/Models/Booking.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/AddInformation.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/ForgotPasswordPage.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/RegisterAccount.dart';
 import 'package:doanchuyennganh/bloc/auth_bloc/auth_bloc.dart';
+import 'package:doanchuyennganh/bloc/book_add_register_user/book_reg_user_bloc.dart';
+import 'package:doanchuyennganh/bloc/email_information_register/email_information_register_bloc.dart';
+import 'package:doanchuyennganh/bloc/register_bloc/booking_bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -103,7 +108,7 @@ class _LoginState extends State<Login> {
                             errorText: _userInvalid? _userError:null,
                             labelStyle:
                             TextStyle(color: Color(0xff888888), fontSize: 18)),
-
+    
                       ),
                     ),
                     Padding(
@@ -165,6 +170,9 @@ class _LoginState extends State<Login> {
                             color: HexColor("#EC2D2F"),),
                           onTap: (){
                             BlocProvider.of<AuthBloc>(context).add(GoogleSignInRequested());
+                             BlocProvider.of<EmailRegUserBloc>(context).add(
+       LoadEmailRegUser()
+     );
                           },
                         ),
                         SizedBox(width: 30.0,),
@@ -233,7 +241,7 @@ class _LoginState extends State<Login> {
                         ],
                       ),
                     ),
-
+    
                   ],),
               ),
             ),
@@ -244,7 +252,7 @@ class _LoginState extends State<Login> {
         return Center(child: Text("Something went wrong"));
       }
     }),
-
+    
     );
   }
  void onSignInClicked(BuildContext context,String password) {

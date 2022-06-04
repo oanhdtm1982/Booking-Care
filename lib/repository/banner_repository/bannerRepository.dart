@@ -7,6 +7,6 @@ class BannerRepository extends BaseBannerRepository{
   BannerService service = BannerService();
   @override
   Future<List<Banner_Model>> getAllBanner() async{
-    return service.retrieveBannerData();
+    return await service.retrieveBannerData();
   }
 }

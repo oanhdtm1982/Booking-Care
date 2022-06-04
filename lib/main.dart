@@ -1,17 +1,19 @@
 import 'dart:async';
-import 'package:bloc/bloc.dart';
-import 'package:doanchuyennganh/Screens/Welcome/Components/Login/AddInformation.dart';
 import 'package:doanchuyennganh/Screens/welcome_screen.dart';
 import 'package:doanchuyennganh/bloc/auth_bloc/auth_bloc.dart';
 import 'package:doanchuyennganh/bloc/banner_bloc/banner_bloc.dart';
 import 'package:doanchuyennganh/bloc/bookRegister/book_reg_bloc.dart';
+import 'package:doanchuyennganh/bloc/book_add_register_user/book_reg_user_bloc.dart';
 import 'package:doanchuyennganh/bloc/email_bloc/email_bloc.dart';
+import 'package:doanchuyennganh/bloc/email_information_register/email_information_register_bloc.dart';
+import 'package:doanchuyennganh/bloc/notification_bloc/notification_bloc.dart';
 import 'package:doanchuyennganh/bloc/register_bloc/booking_bloc.dart';
 import 'package:doanchuyennganh/cubit/theme_cubit.dart';
 import 'package:doanchuyennganh/repository/auth_repository/auth_repository.dart';
 import 'package:doanchuyennganh/repository/banner_repository/bannerRepository.dart';
 import 'package:doanchuyennganh/repository/booking_repository/bookingRepository.dart';
 import 'package:doanchuyennganh/repository/email_repository/email_repository.dart';
+import 'package:doanchuyennganh/repository/notification_repository/notification_repository.dart';
 import 'package:doanchuyennganh/widgets/AppBlocObserver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +21,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'bloc/book_add_register_user/book_reg_user_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
         providers: [
+          RepositoryProvider(create: (context) => NotificationRepository()),
           RepositoryProvider(create: (context) => AuthRepository()),
           RepositoryProvider(create: (context) => BookingRepository()),
           RepositoryProvider(create: (context) => BannerRepository()),
@@ -56,18 +58,27 @@ class MyApp extends StatelessWidget {
                     authRepository:
                         RepositoryProvider.of<AuthRepository>(context))),
             BlocProvider(
-                create: (context) => BookRegUserBloc(
-                    bookingRepository:
-                        RepositoryProvider.of<BookingRepository>(context))),
-            BlocProvider(
                 create: (context) => EmailBloc(
                     emailRepository:
                         RepositoryProvider.of<EmailRepository>(context))),
+            BlocProvider(
+                create: (context) => BookRegUserBloc(
+                    bookingRepository:
+                        RepositoryProvider.of<BookingRepository>(context))..add(LoadBookingRegUser())),
+            BlocProvider(
+                create: (context) => EmailRegUserBloc(
+                    bookingRepository:
+                        RepositoryProvider.of<BookingRepository>(context))),
             BlocProvider(
                 create: (context) => BookingBloc(
                     bookingRepository:
                         RepositoryProvider.of<BookingRepository>(context))
                   ..add(LoadBooking())),
+            BlocProvider(
+                create: (context) => NotificationBloc(
+                    notificationRepository:
+                        RepositoryProvider.of<NotificationRepository>(context))
+                  ..add(LoadNotification())),
             BlocProvider(
                 create: (context) => BannerBloc(
                     bannerRepository:
