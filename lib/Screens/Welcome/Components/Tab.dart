@@ -42,7 +42,7 @@ class _TabState extends State<TabPage> {
 
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today_rounded),
-            label: "Calendar",
+            label: "History",
             backgroundColor: Colors.blueAccent,
           ),
           BottomNavigationBarItem(

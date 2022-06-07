@@ -8,4 +8,12 @@ class NotificationRepository extends BaseNotificationRepository{
   Future<List<NotificationModel>> getNotificationData() async{
     return await service.retrieveNotificationData();
   }
+   @override
+  Future<void> addNotification(NotificationModel notification) async {
+    return await service.addNotificationData(notification);
+  }
+  @override
+  Future<void> updateConfirmNotification(NotificationModel notification) async{
+    return await service.updateNotificationConfirm(notification);
+  }
 }

@@ -168,11 +168,11 @@ class _LoginState extends State<Login> {
                           child: FaIcon(
                             FontAwesomeIcons.googlePlus, size: 35,
                             color: HexColor("#EC2D2F"),),
-                          onTap: (){
-                            BlocProvider.of<AuthBloc>(context).add(GoogleSignInRequested());
-                             BlocProvider.of<EmailRegUserBloc>(context).add(
-       LoadEmailRegUser()
-     );
+                          onTap: () async{
+                            BlocProvider.of<EmailRegUserBloc>(context).add(
+                                 LoadEmailRegUser()
+                                );
+                            BlocProvider.of<AuthBloc>(context).add(GoogleSignInRequested());  
                           },
                         ),
                         SizedBox(width: 30.0,),

@@ -1,6 +1,5 @@
 import 'package:doanchuyennganh/Screens/Welcome/Components/Calendar/CalendarEvent.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Calendar/History.dart';
-import 'package:doanchuyennganh/Screens/Welcome/Components/Home/Home.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Tab.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -23,6 +22,10 @@ class _CalendarPageState extends State<CalendarPage> {
     selectedEvents = {};
     super.initState();
   }
+  @override
+  void dispose(){
+    super.dispose();
+  }
 
   List<Event> _getEventsDay(DateTime date){
     return selectedEvents[date]??[];
@@ -31,7 +34,7 @@ class _CalendarPageState extends State<CalendarPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue,
-          title: Text("Calendar"),
+          title: Text("History"),
           leading: IconButton(
             onPressed: (){
               Navigator.push(

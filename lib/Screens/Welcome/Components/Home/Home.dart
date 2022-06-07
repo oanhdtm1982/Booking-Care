@@ -31,6 +31,7 @@ class BodyHomePage extends StatelessWidget {
     int _index = 0;
     bool _isChecked = false;
     final user = FirebaseAuth.instance.currentUser!;
+    final state_books;
     
     return BlocListener<EmailRegUserBloc,EmailRegUserState>(
       listener: ((context, state){
@@ -99,16 +100,27 @@ class BodyHomePage extends StatelessWidget {
                                   if (state is BookingLoaded) {
                                     for (int i = 0; i < state.books.length; i++)
                                       if (user.email == state.books[i].email)
-                                        return Container(
-                                          width: 80,
-                                          height: 80,
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle),
-                                          child: user.photoURL != null
-                                              ?  Avatar(path: user.photoURL!)
-                              : AvatarEmail(path: state.books[i].imagePath),
-                                                
-                                        );
+                                        return Row(
+                                          children: [
+                                            Container(
+                                              width: 80,
+                                              height: 80,
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle),
+                                              child: user.photoURL != null
+                                                  ?  Avatar(path: user.photoURL!)
+                                        : AvatarEmail(path: state.books[i].imagePath),
+                                            ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(20.0),
+                                            child: Text(
+                                              "Hello, \n${user.displayName != null ? user.displayName :  state.books[i].name}",
+                                              style: TextStyle(
+                                                  color: Colors.white, fontSize: 22),
+                                            ),
+                                          ),
+                                        ],
+                                      );
                                     return Container();
                                   } else {
                                     return Image.asset(
@@ -116,14 +128,7 @@ class BodyHomePage extends StatelessWidget {
                                   }
                                 },
                               )),
-                              Padding(
-                                padding: const EdgeInsets.all(20.0),
-                                child: Text(
-                                  "Hello, \n${user.displayName != null ? user.displayName : "Welcome back"}",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 22),
-                                ),
-                              ),
+                              
                             ]),
                       )),
                   SizedBox(

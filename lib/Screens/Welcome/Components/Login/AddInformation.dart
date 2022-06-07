@@ -2,10 +2,8 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doanchuyennganh/Models/Booking.dart';
-import 'package:doanchuyennganh/Screens/Welcome/Components/Login/Login.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Tab.dart';
 import 'package:doanchuyennganh/bloc/auth_bloc/auth_bloc.dart';
-import 'package:doanchuyennganh/bloc/book_add_register_user/book_reg_user_bloc.dart';
 import 'package:doanchuyennganh/bloc/email_information_register/email_information_register_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -122,7 +120,7 @@ class _AddInfoState extends State<AddInfo> {
                                       "Enter your mobile number"),
                                   keyboardType: TextInputType.phone,
                                   validator: (val) {
-                                    if(!(val!.isEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val)){
+                                    if((val!.isEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val)){
                                       return "Enter a valid phone number";
                                     }
                                     return null;

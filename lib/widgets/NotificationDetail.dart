@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:doanchuyennganh/Models/Notification.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Notification/NotificationView.dart';
 import 'package:flutter/material.dart';
@@ -5,9 +7,11 @@ class NotificationDetail extends StatefulWidget {
   NotificationDetail({
     required this.index,
     required this.list,
+    required this.function,
     Key? key}) : super(key: key);
     int index;
   List<NotificationModel> list;
+  VoidCallback function;
   @override
   State<NotificationDetail> createState() => _NotificationDetailState();
 }
@@ -111,30 +115,17 @@ class _NotificationDetailState extends State<NotificationDetail> {
         ),
         ),
         Container(
-            height: 70,
-            width: 58,
+          height: 70,
+          width: 58,
+          child: GestureDetector(
+            onTap: widget.function,
             child: Image.asset(
-              "assets/icons/work_list_edit.png",
-              width: 16,
-              height: 16,
-            ),
+                "assets/icons/work_list_edit.png",
+                width: 16,
+                height: 16,
+              ),
           ),
-          Container(
-            height: 70,
-            width: 1,
-            color: Color(0xFF000000).withOpacity(.1),
-          ),
-          Padding(padding: const EdgeInsets.only(right: 16),
-            child: Container(
-              height: 70,
-              width: 58,
-              child: GestureDetector(
-                onTap: (){},
-                child: Image.asset("assets/icons/work_list_delete.png"),
-              )
-              
-            ),
-          )
+        ),
       ]),
     );
   }

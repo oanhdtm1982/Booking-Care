@@ -1,5 +1,7 @@
 import 'package:doanchuyennganh/Screens/Welcome/Components/Tab.dart';
 import 'package:doanchuyennganh/bloc/notification_bloc/notification_bloc.dart';
+import 'package:doanchuyennganh/bloc/register_bloc/booking_bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../widgets/NotificationDetail.dart';
@@ -11,8 +13,10 @@ class NotificationPage extends StatefulWidget {
 }
 
 class _NotificationPageState extends State<NotificationPage> {
+  final user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -34,13 +38,64 @@ class _NotificationPageState extends State<NotificationPage> {
             return Center(child: CircularProgressIndicator());
           }
           if(state is NotificationLoaded){
-            return ListView.builder(
-              itemCount: state.notifications.length,
-              itemBuilder: (BuildContext context,int index){
-                return NotificationDetail(
-                  index: index,
-                  list: state.notifications);
-            });
+            return SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  BlocBuilder<BookingBloc,BookingState>(
+                    builder: (context,stateBooks){
+                      if(stateBooks is BookingLoading){
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      if(stateBooks is BookingLoaded){
+                        return Container(
+                      height: size.height/2-20,
+                      child: ListView.builder(
+                        itemCount: state.notifications.length,
+                        itemBuilder: (BuildContext context,int index){
+                          if(state.notifications[index].email == user.email){
+                            for(int k = 0;k<stateBooks.doctors.length;k++){
+                              
+                            if(state.notifications[index].confirm == false && state.notifications[index].email == stateBooks.doctors[k].email){
+                              return NotificationDetail(
+                                function: (){
+                                  BlocProvider.of<NotificationBloc>(context).add(UpdateNotification(state.notifications[index]));
+                                  context.read<NotificationBloc>().add(LoadNotification());
+                                },
+                                index: index,
+                                list: state.notifications);
+                            }
+                          }
+                           for(int j = 0;j<stateBooks.books.length;j++){
+                            if(state.notifications[index].confirm == true && state.notifications[index].email == stateBooks.books[j].email){
+                                  return NotificationDetail(
+                                function: (){ 
+                                  BlocProvider.of<NotificationBloc>(context).add(UpdateNotification(state.notifications[index]));
+                                  context.read<NotificationBloc>().add(LoadNotification());
+                                },
+                                index: index,
+                                list: state.notifications);       
+                              }
+                            }
+                              return Container();
+                            } 
+                            else{
+                              return Container();
+                            }
+                          }
+                      
+                      ),
+                    );
+                      }
+                      else{
+                        return Text("Something went wrong");
+                      }
+                    },
+                  ),
+                ],
+              ),
+            );
           }
           else{
             return Text("Something went wrong");

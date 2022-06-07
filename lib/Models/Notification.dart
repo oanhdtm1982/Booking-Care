@@ -7,7 +7,9 @@ class NotificationModel extends Equatable {
   bool confirm;
   final String docID;
   final String email;
+  final String id;
   NotificationModel({
+    required this.id,
     required this.title,
     required this.description,
     required this.confirm,
@@ -18,6 +20,7 @@ class NotificationModel extends Equatable {
   factory NotificationModel.fromJson(Map<String, dynamic> json) {
     NotificationModel description = NotificationModel(
       title: json["title"],
+      id: json["id"],
       confirm: json["confirm"],
       description: json["description"],
       docID: json["docID"],
@@ -26,9 +29,10 @@ class NotificationModel extends Equatable {
     return description;
   }
   NotificationModel toEntity() =>
-      NotificationModel(email:email,title: title, description: description, confirm: confirm, docID: docID);
+      NotificationModel(id:id,email:email,title: title, description: description, confirm: confirm, docID: docID);
   Map<String, dynamic> toJson() => {
         'title': this.title,
+        'id': this.id,
         'description': this.description,
         'confirm': this.confirm,
         'docID': this.docID,
@@ -36,14 +40,9 @@ class NotificationModel extends Equatable {
       };
   NotificationModel.fromDocumentSnapshot(DocumentSnapshot<Map<String, dynamic>> doc)
       : title = doc.data()!["title"],
+        id = doc.data()!["id"],
         description = doc.data()!["description"],
         docID = doc.data()!["docID"],
         email = doc.data()!["email"],
         confirm = doc.data()!["confirm"];
 }
-List<NotificationModel> list_noti_raw = [
-  NotificationModel(title: "Sending schedule time", description: "Schedule time: 9.00 Am - 14-09-2012", confirm: false, docID: "BS213", email: "kudung052@gmail.com"),
-  NotificationModel(title: "Sending schedule time", description: "Schedule time: 2.00 Am - 14-09-2012", confirm: false, docID: "BS213", email: "test1@gmail.com"),
-  NotificationModel(title: "Sending schedule time", description: "Schedule time: 3.00 Am - 14-09-2012", confirm: false, docID: "BS213", email: "test2@gmail.com"),
-  NotificationModel(title: "Sending schedule time", description: "Schedule time: 4.00 Am - 14-09-2012", confirm: false, docID: "BS213", email: "test3@gmail.com"),
-];

@@ -1,9 +1,11 @@
 import 'package:doanchuyennganh/Models/BookingRegister.dart';
 import 'package:doanchuyennganh/Models/Email.dart';
+import 'package:doanchuyennganh/Models/Notification.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Booking/SpecialtyOption.dart';
 import 'package:doanchuyennganh/Screens/prefixIcon.dart';
 import 'package:doanchuyennganh/bloc/bookRegister/book_reg_bloc.dart';
 import 'package:doanchuyennganh/bloc/email_bloc/email_bloc.dart';
+import 'package:doanchuyennganh/bloc/notification_bloc/notification_bloc.dart';
 import 'package:doanchuyennganh/widgets/BuildForm.dart';
 import 'package:doanchuyennganh/widgets/birth_day.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -272,13 +274,19 @@ class _ItemPageState extends State<ItemPage> {
                                       .list_doctors[widget.id_doc]
                                       .toString(),
                                   toEmail: state.doctors[j].email);
+                              var notification = NotificationModel(id: state.books.length.toString(),title: "[TB] Thông báo lịch khám",
+                              description: "Bệnh viện Đa Khoa Thủ Đức thông báo đến bệnh nhân ${state.books[index_id].name} lịch khám như sau: Ngày ${dateController.toString().split(' ')[0]} - ${timeController.value.text} - BS: ${state.spec[widget.id_spec].list_doctors[widget.id_doc].toString()}  - Khoa: ${state.spec[widget.id_spec].spec_name.toString()}",
+                              confirm: false,
+                              docID: state.doctors[j].docID,
+                              email: state.books[index_id].email);
 
                               setState(() {
                                 context
                                     .read<BookRegBloc>()
                                     .add(AddBookingReg(bookingReg));
-                                BlocProvider.of<EmailBloc>(context)
-                                    .add(SendRequested(email));
+                                context.read<NotificationBloc>().add(AddNotification(notification));
+                                // BlocProvider.of<EmailBloc>(context)
+                                //     .add(SendRequested(email));
                               });
                             }
                           }
