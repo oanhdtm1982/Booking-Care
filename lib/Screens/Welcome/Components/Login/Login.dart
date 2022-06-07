@@ -87,11 +87,15 @@ class _LoginState extends State<Login> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                       child: Container(
-                          width: 80,
-                          height: 80,
+                          width: 90,
+                          height: 90,
                           padding: EdgeInsets.all(15),
                           decoration: BoxDecoration(shape: BoxShape.circle,color: Color(0xffd8d8d8)),
-                          child: FlutterLogo()),
+                          child: Image.asset(
+                              "assets/images/icon.png",
+                              width: size.width * .4,
+                              fit: BoxFit.fitWidth,
+                            ),),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
@@ -145,7 +149,7 @@ class _LoginState extends State<Login> {
                               width: MediaQuery.of(context).size.height - 40,
                               decoration: BoxDecoration(
                                 color: Colors.blue,
-                                borderRadius: BorderRadius.circular(15),
+                                borderRadius: BorderRadius.circular(30),
                               ),
                               child: Align(
                                 alignment: Alignment.center,

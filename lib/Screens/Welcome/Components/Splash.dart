@@ -1,6 +1,8 @@
+import 'package:doanchuyennganh/Screens/Welcome/Components/Login/walkthrough_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'Login/Login.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Login/walkthrough_screen.dart';
 
  class Splash extends StatelessWidget {
    const Splash({Key? key}) : super(key: key);
@@ -9,7 +11,8 @@ import 'Login/Login.dart';
    Widget build(BuildContext context) {
      return SplashScreen(
       seconds: 5,
-      navigateAfterSeconds: new Login(),
+      navigateAfterSeconds: new WalkThroughScreen(),
+      //new Login(),
       backgroundColor: Colors.white,
       image: new Image.asset("assets/images/icon.png", 
       height: 100,
