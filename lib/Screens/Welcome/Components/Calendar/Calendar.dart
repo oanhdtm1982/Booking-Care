@@ -102,7 +102,7 @@ class _CalendarPageState extends State<CalendarPage> {
                 ),
               ),
               SizedBox(height: 20,),
-              History(),
+              History(dayselected: selectedDay),
             ],
           ),
         ),

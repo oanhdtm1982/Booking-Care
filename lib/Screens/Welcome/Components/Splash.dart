@@ -1,8 +1,8 @@
-import 'package:doanchuyennganh/Screens/Welcome/Components/Login/walkthrough_screen.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Walkthrough/walkthrough_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'Login/Login.dart';
-import 'package:doanchuyennganh/Screens/Welcome/Components/Login/walkthrough_screen.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Walkthrough/walkthrough_screen.dart';
 
  class Splash extends StatelessWidget {
    const Splash({Key? key}) : super(key: key);

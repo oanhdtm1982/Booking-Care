@@ -47,36 +47,4 @@ class BookingService {
   Future<void> addBookingUserData(Booking book) {
     return _firestore.collection('booking').add(book.toEntity().toJson());
   }
-
-  Future<void> updateBookingUserDataPhone(Booking book) {
-    return _firestore
-        .collection('booking')
-        .where("id", isEqualTo: book.id)
-        .get()
-        .then((value) {
-      try {
-        value.docs[int.parse(book.id)]
-            .data()
-            .update('phone', (value) => book.phone);
-      } catch (e) {
-        print(e.toString());
-      }
-    });
-  }
-
-  Future<void> updateBookingUserDataImagePath(Booking book) {
-    return _firestore
-        .collection('booking')
-        .where("id", isEqualTo: book.id)
-        .get()
-        .then((value) {
-      try {
-        value.docs[int.parse(book.id)]
-            .data()
-            .update('path', (value) => book.phone);
-      } catch (e) {
-        print(e.toString());
-      }
-    });
-  }
 }

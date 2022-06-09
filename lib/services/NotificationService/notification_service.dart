@@ -17,7 +17,7 @@ class NotificationService{
   }
   Future<void> updateNotificationConfirm(NotificationModel notification) async{
     QuerySnapshot<Map<String,dynamic>> snapshot =
-        await _firestore.collection('notification').where("confirm", isEqualTo: false).where("email",isEqualTo: notification.email).where("id",isEqualTo: "1").get();
+        await _firestore.collection('notification').where("confirm", isEqualTo: false).where("email",isEqualTo: notification.email).where("id",isEqualTo: notification.id).get();
     return snapshot.docs.forEach((element) { 
       element.reference.update({"confirm": true});
     });

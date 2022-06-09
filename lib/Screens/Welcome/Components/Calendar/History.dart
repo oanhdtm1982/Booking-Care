@@ -3,9 +3,12 @@ import 'package:doanchuyennganh/widgets/history_detail.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
+
 class History extends StatelessWidget {
-  History({Key? key}) : super(key: key);
+  History({
+    required this.dayselected,
+    Key? key}) : super(key: key);
+  DateTime dayselected;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -15,20 +18,23 @@ class History extends StatelessWidget {
         if(state is BookRegLoading){
           return Center(child: CircularProgressIndicator());
         }
-        if(state is BookRegLoaded){
-          return Column(
-            children: [
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: state.bookRegs.length,
-                itemBuilder: (BuildContext context,int index){
-                  return  HistoryDetail(
-                index: index,
-                list: state.bookRegs);
-              })
-            ],
-          );
-    }
+        if(state is BookRegLoaded){       
+             return Column(
+              children: [
+                ListView.builder(
+                   shrinkWrap: true,
+                   itemCount: state.bookRegs.length,
+                   itemBuilder: (BuildContext context,int index){
+                     if(auth.email == state.bookRegs[index].email && state.bookRegs[index].date == dayselected.toLocal().toString().split(' ')[0]){
+                    return HistoryDetail(
+                      index: index,
+                      list: state.bookRegs);
+                     }
+                     return Container();
+                  })
+                ],
+              );
+        }
         else{
           return Text("Something went wrong");
         }

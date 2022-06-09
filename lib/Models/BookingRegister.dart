@@ -7,6 +7,7 @@ class BookingRegister extends Equatable{
   final String time;
   final String spec;
   final String docName;
+  final String email;
   bool isConfirm;
   BookingRegister({
     required this.id,
@@ -15,12 +16,14 @@ class BookingRegister extends Equatable{
     required this.spec,
     required this.docName,
     required this.isConfirm,
+    required this.email,
   });
   @override
   List<Object?>get props => [id,date,time,spec,docName];
   static BookingRegister fromJson(Map<String,dynamic> json){
     BookingRegister bookingRegister = BookingRegister(
       id : json["id"],
+      email: json["email"],
       date: json["date"],
       time: json["time"],
       spec:  json["spec"],
@@ -29,7 +32,7 @@ class BookingRegister extends Equatable{
     );
     return bookingRegister;
   }
-  BookingRegister toEntity() =>  BookingRegister(isConfirm:isConfirm,id: id, date: date, time: time, spec: spec, docName: docName);
+  BookingRegister toEntity() =>  BookingRegister(email:email,isConfirm:isConfirm,id: id, date: date, time: time, spec: spec, docName: docName);
   Map<String,dynamic> toJson() => {
     'id' : this.id,
     'date': this.date,
@@ -37,9 +40,11 @@ class BookingRegister extends Equatable{
     'spec': this.spec,
     'docName': this.docName,
     'isConfirm': this.isConfirm,
+    'email': this.email,
   };
   BookingRegister.fromDocumentSnapshot(DocumentSnapshot<Map<String,dynamic>> doc)
       : id = doc.data()!["id"],
+        email = doc.data()!["email"],
         date = doc.data()!["date"],
         time = doc.data()!["time"],
         spec = doc.data()!["spec"],

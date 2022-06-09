@@ -1,5 +1,5 @@
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/Login.dart';
-import 'package:doanchuyennganh/Screens/Welcome/Components/Login/walkthrough_content.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Walkthrough/walkthrough_content.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Login/wellcome.dart';
 import 'package:flutter/material.dart';
 

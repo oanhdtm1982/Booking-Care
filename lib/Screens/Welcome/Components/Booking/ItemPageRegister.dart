@@ -29,7 +29,7 @@ class _ItemPageState extends State<ItemPage> {
   @override
   Widget build(BuildContext context) {
     final UserAuth = FirebaseAuth.instance.currentUser!;
-    int i, k;
+    int i;
     int index_id;
     final dateController = DateTime.now();
     final timeController = TextEditingController();
@@ -237,70 +237,85 @@ class _ItemPageState extends State<ItemPage> {
                       text: "9:00 am",
                       icondata: Icons.timelapse),
                   SizedBox(height: 20),
-                  Center(
-                      child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
-                        backgroundColor: Colors.blueAccent,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20))),
-                    onPressed: () {
-                      for (index_id = 0;
-                          index_id < state.books.length;
-                          index_id++) {
-                        if (UserAuth.email == state.books[index_id].email) {
-                          var bookingReg = BookingRegister(
-                            id: state.books[index_id].id.toString(),
-                            date: dateController.toString().split(' ')[0],
-                            time: timeController.value.text,
-                            spec:
-                                state.spec[widget.id_spec].spec_name.toString(),
-                            docName: state.spec[widget.id_spec]
-                                .list_doctors[widget.id_doc]
-                                .toString(),
-                            isConfirm: false
-                          );
-                          for (int j = 0; j < state.doctors.length; j++) {
-                            if (state.doctors[j].name ==
-                                state.spec[widget.id_spec]
-                                    .list_doctors[widget.id_doc]) {
-                              var email = Email(
-                                  name: state.books[index_id].name,
-                                  email: state.books[index_id].email,
-                                  subject: "BỆNH VIỆN ĐA KHOA THỦ ĐỨC",
-                                  message:
-                                      "${bookingReg.toString()} Bệnh nhân: ${state.books[index_id].name} \n - Số điện thoại: ${state.books[index_id].phone} - Giới tính: ${state.books[index_id].gender} \nBác sĩ đảm nhiệm ${state.spec[widget.id_spec].list_doctors[widget.id_doc].toString()} thuộc khoa ${state.spec[widget.id_spec].spec_name.toString()}\n Vào lúc: ${timeController.value.text} ngày ${dateController.toLocal().toString().split(' ')[0]}",
-                                  toName: state.spec[widget.id_spec]
-                                      .list_doctors[widget.id_doc]
-                                      .toString(),
-                                  toEmail: state.doctors[j].email);
-                              var notification = NotificationModel(id: state.books.length.toString(),title: "[TB] Thông báo lịch khám",
-                              description: "Bệnh viện Đa Khoa Thủ Đức thông báo đến bệnh nhân ${state.books[index_id].name} lịch khám như sau: Ngày ${dateController.toString().split(' ')[0]} - ${timeController.value.text} - BS: ${state.spec[widget.id_spec].list_doctors[widget.id_doc].toString()}  - Khoa: ${state.spec[widget.id_spec].spec_name.toString()}",
-                              confirm: false,
-                              docID: state.doctors[j].docID,
-                              email: state.books[index_id].email);
-
-                              setState(() {
-                                context
-                                    .read<BookRegBloc>()
-                                    .add(AddBookingReg(bookingReg));
-                                context.read<NotificationBloc>().add(AddNotification(notification));
-                                // BlocProvider.of<EmailBloc>(context)
-                                //     .add(SendRequested(email));
-                              });
+                  BlocBuilder<BookRegBloc,BookRegState>(
+                    builder: (context,stateBookReg){
+                      if(stateBookReg is UnLoadedBookingReg){
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      if(stateBookReg is BookRegLoaded){
+                        return Center(
+                        child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(horizontal: 40),
+                          backgroundColor: Colors.blueAccent,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20))),
+                      onPressed: () {
+                        for (index_id = 0;
+                            index_id < state.books.length;
+                            index_id++) {
+                          if (UserAuth.email == state.books[index_id].email) {
+                            var bookingReg = BookingRegister(
+                              id: state.books[index_id].id.toString(),
+                              date: dateController.toString().split(' ')[0],
+                              time: timeController.value.text,
+                              email: state.books[index_id].email,
+                              spec:
+                                  state.spec[widget.id_spec].spec_name.toString(),
+                              docName: state.spec[widget.id_spec]
+                                  .list_doctors[widget.id_doc]
+                                  .toString(),
+                              isConfirm: false
+                            );
+                            for (int j = 0; j < state.doctors.length; j++) {
+                              if (state.doctors[j].name ==
+                                  state.spec[widget.id_spec]
+                                      .list_doctors[widget.id_doc]) {
+                                var email = Email(
+                                    name: state.books[index_id].name,
+                                    email: state.books[index_id].email,
+                                    subject: "BỆNH VIỆN ĐA KHOA THỦ ĐỨC",
+                                    message:
+                                        "${bookingReg.toString()} Bệnh nhân: ${state.books[index_id].name} \n - Số điện thoại: ${state.books[index_id].phone} - Giới tính: ${state.books[index_id].gender} \nBác sĩ đảm nhiệm ${state.spec[widget.id_spec].list_doctors[widget.id_doc].toString()} thuộc khoa ${state.spec[widget.id_spec].spec_name.toString()}\n Vào lúc: ${timeController.value.text} ngày ${dateController.toLocal().toString().split(' ')[0]}",
+                                    toName: state.spec[widget.id_spec]
+                                        .list_doctors[widget.id_doc]
+                                        .toString(),
+                                    toEmail: state.doctors[j].email);
+                                var notification = NotificationModel(
+                                  id: (stateBookReg.bookRegs.length+1).toString(),
+                                  title: "[TB] Thông báo lịch khám tới bệnh nhân ${state.books[index_id].name}",
+                                  description: "Bệnh viện Đa Khoa Thủ Đức thông báo đến bệnh nhân ${state.books[index_id].name} lịch khám như sau: Ngày ${dateController.toString().split(' ')[0]} - ${timeController.value.text} - BS: ${state.spec[widget.id_spec].list_doctors[widget.id_doc].toString()}  - Khoa: ${state.spec[widget.id_spec].spec_name.toString()}",
+                                  confirm: false,
+                                  docID: state.doctors[j].docID,
+                                  email: state.doctors[j].email);
+                  
+                                setState(() {
+                                  context
+                                      .read<BookRegBloc>()
+                                      .add(AddBookingReg(bookingReg));
+                                      context.read<NotificationBloc>().add(AddNotification(notification));
+                                  BlocProvider.of<EmailBloc>(context)
+                                      .add(SendRequested(email));
+                                });
+                              }
                             }
                           }
                         }
+                      },
+                      child: Text(
+                        "REGISTER",
+                        style: TextStyle(
+                            fontSize: 15,
+                            letterSpacing: 2.2,
+                            color: Colors.white),
+                      ),
+                    ));
+                      }
+                      else{
+                        return Container();
                       }
                     },
-                    child: Text(
-                      "REGISTER",
-                      style: TextStyle(
-                          fontSize: 15,
-                          letterSpacing: 2.2,
-                          color: Colors.white),
-                    ),
-                  ))
+                  )
                 ],
               ),
             ),

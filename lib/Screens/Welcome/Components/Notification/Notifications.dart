@@ -14,6 +14,7 @@ class NotificationPage extends StatefulWidget {
 
 class _NotificationPageState extends State<NotificationPage> {
   final user = FirebaseAuth.instance.currentUser!;
+  bool isEdit = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -55,14 +56,27 @@ class _NotificationPageState extends State<NotificationPage> {
                         itemCount: state.notifications.length,
                         itemBuilder: (BuildContext context,int index){
                           if(state.notifications[index].email == user.email){
-                            for(int k = 0;k<stateBooks.doctors.length;k++){
-                              
+                            for(int k = 0;k<stateBooks.doctors.length;k++){                     
                             if(state.notifications[index].confirm == false && state.notifications[index].email == stateBooks.doctors[k].email){
                               return NotificationDetail(
                                 function: (){
-                                  BlocProvider.of<NotificationBloc>(context).add(UpdateNotification(state.notifications[index]));
-                                  context.read<NotificationBloc>().add(LoadNotification());
+                                  setState(() {
+                                    isEdit = !isEdit;
+                                  });
                                 },
+                                function1: (){
+                                  BlocProvider.of<NotificationBloc>(context).add(UpdateNotification(state.notifications[index]));
+                                    context.read<NotificationBloc>().add(LoadNotification());
+                                },
+                                function2: (){
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                      MaterialPageRoute(
+                                          builder: (context) => NotificationPage()
+                                      ),
+                                          (Route<dynamic> route) => false
+                                  );
+                                },
+                                isEdit: isEdit,
                                 index: index,
                                 list: state.notifications);
                             }
@@ -71,9 +85,23 @@ class _NotificationPageState extends State<NotificationPage> {
                             if(state.notifications[index].confirm == true && state.notifications[index].email == stateBooks.books[j].email){
                                   return NotificationDetail(
                                 function: (){ 
-                                  BlocProvider.of<NotificationBloc>(context).add(UpdateNotification(state.notifications[index]));
-                                  context.read<NotificationBloc>().add(LoadNotification());
+                                  setState(() {
+                                     isEdit = !isEdit;
+                                  });
                                 },
+                                function1: (){
+                                    BlocProvider.of<NotificationBloc>(context).add(UpdateNotification(state.notifications[index]));
+                                    context.read<NotificationBloc>().add(LoadNotification());
+                                },
+                                function2: (){
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                      MaterialPageRoute(
+                                          builder: (context) => NotificationPage()
+                                      ),
+                                          (Route<dynamic> route) => false
+                                  );
+                                },
+                                isEdit: isEdit,
                                 index: index,
                                 list: state.notifications);       
                               }

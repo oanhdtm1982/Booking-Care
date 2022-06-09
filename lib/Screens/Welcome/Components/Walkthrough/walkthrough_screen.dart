@@ -1,4 +1,4 @@
-import 'package:doanchuyennganh/Screens/Welcome/Components/Login/walkthrough.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Walkthrough/walkthrough.dart';
 import 'package:flutter/material.dart';
 
 class WalkThroughScreen extends StatelessWidget {

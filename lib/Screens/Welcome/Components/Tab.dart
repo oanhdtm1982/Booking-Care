@@ -1,5 +1,8 @@
 import 'package:doanchuyennganh/Screens/Welcome/Components/Booking/Register.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Login/AddInformation.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Notification/Notifications.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../bloc/email_information_register/email_information_register_bloc.dart';
 import 'Calendar/Calendar.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Home/Home.dart';
 import 'package:doanchuyennganh/Screens/Welcome/Components/Setting/Setting.dart';
@@ -24,43 +27,55 @@ class _TabState extends State<TabPage> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: screen[currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.blueAccent,
-        currentIndex: currentIndex,
-        selectedItemColor: Colors.black,
-        onTap: (index) => setState(
-            () => currentIndex = index,
+    return BlocListener<EmailRegUserBloc,EmailRegUserState>(
+      listener: ((context, state){
+        if(state is EmailRegUserLoaded){
+         Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (context) => AddInfo()
+            ),
+                (Route<dynamic> route) => false
+        );
+        }
+      }),
+      child: Scaffold(
+        body: screen[currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.blueAccent,
+          currentIndex: currentIndex,
+          selectedItemColor: Colors.black,
+          onTap: (index) => setState(
+              () => currentIndex = index,
+          ),
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: "Home",
+              backgroundColor: Colors.blueAccent,
+            ),
+    
+            BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_today_rounded),
+              label: "History",
+              backgroundColor: Colors.blueAccent,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.add),
+              label: "Register",
+              backgroundColor: Colors.blueAccent,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.notification_important),
+              label: "Notification",
+              backgroundColor: Colors.blueAccent,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: "Setting",
+              backgroundColor: Colors.blueAccent,
+            )
+          ],
         ),
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-            backgroundColor: Colors.blueAccent,
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today_rounded),
-            label: "History",
-            backgroundColor: Colors.blueAccent,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: "Register",
-            backgroundColor: Colors.blueAccent,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notification_important),
-            label: "Notification",
-            backgroundColor: Colors.blueAccent,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: "Setting",
-            backgroundColor: Colors.blueAccent,
-          )
-        ],
       ),
     );
   }
