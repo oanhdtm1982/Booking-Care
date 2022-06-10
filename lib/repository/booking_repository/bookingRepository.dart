@@ -37,4 +37,8 @@ class BookingRepository extends BaseBookingRepository {
   Future<void> addBookingRegister(BookingRegister bookReg) async {
     return await service.addBookingRegData(bookReg);
   }
+  @override
+  Future<void> updateBookingPhoneUser(Booking book,String phone) async{
+    return await service.updatePhoneNumber(book,phone);
+  }
 }

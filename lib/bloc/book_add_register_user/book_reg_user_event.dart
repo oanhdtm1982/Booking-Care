@@ -13,3 +13,10 @@ class AddBookingRegUser extends BookRegUserEvent {
   @override
   List<Object> get props => [bookRegUser];
 }
+class UpdateBookingRegUser extends BookRegUserEvent {
+  final Booking bookRegUser;
+  final String phone;
+  UpdateBookingRegUser(this.bookRegUser,this.phone);
+  @override
+  List<Object> get props => [bookRegUser,phone];
+}

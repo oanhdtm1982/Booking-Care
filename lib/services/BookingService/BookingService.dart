@@ -47,4 +47,11 @@ class BookingService {
   Future<void> addBookingUserData(Booking book) {
     return _firestore.collection('booking').add(book.toEntity().toJson());
   }
+    Future<void> updatePhoneNumber(Booking book,String phone) async{
+    QuerySnapshot<Map<String,dynamic>> snapshot =
+        await _firestore.collection('booking').where("email",isEqualTo: book.email).get();
+    return snapshot.docs.forEach((element) { 
+      element.reference.update({"phone": phone});
+    });
+  }
 }

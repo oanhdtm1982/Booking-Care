@@ -5,17 +5,19 @@ class DefaultButton extends StatelessWidget{
     Key ? key,
     required this.text,
     this.customWidth = 293,
-    this.backgroundcolor = Colors.white,
+    this.customHeight = 50,
+    this.backgroundcolor = Colors.blue,
     this.color = Colors.black,
-
 }): super(key : key);
   final String text;
   final double customWidth;
+  final double customHeight;
   final Color backgroundcolor;
   final Color color;
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: customHeight,
       width: customWidth,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
@@ -24,7 +26,7 @@ class DefaultButton extends StatelessWidget{
       child: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            vertical: 20,
+            vertical: 5,
           ),
           child: Text(
             text,

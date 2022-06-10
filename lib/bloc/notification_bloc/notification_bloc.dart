@@ -37,7 +37,6 @@ class NotificationBloc extends Bloc<NotificationEvent,NotificationState>{
     });
     on<UpdateNotification>((event,emit) async{
       try{
-        final state = this.state as NotificationLoaded;
         _notificationRepository.updateConfirmNotification(event.notification);
       } catch(e){
         UnLoadedNotification();

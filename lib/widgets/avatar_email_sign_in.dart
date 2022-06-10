@@ -47,7 +47,9 @@ class _AvatarEmailState extends State<AvatarEmail> {
               ),
               child: imageFile != null
                   ? Image.file(imageFile!, fit: BoxFit.cover)
-                  : Image.network(widget.path, fit: BoxFit.cover),
+                  : widget.path != "null" 
+                  ? Image.network(widget.path, fit: BoxFit.cover)
+                  : Image.asset("assets/images/avatar.png",fit: BoxFit.cover),
             ),
           ),
           Positioned(

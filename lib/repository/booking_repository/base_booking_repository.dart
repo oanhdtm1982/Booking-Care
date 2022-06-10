@@ -11,4 +11,5 @@ abstract class BaseBookingRepository {
   Future<List<BookingRegister>> getAllBookingRegister();
   Future<void> addBookingUser(Booking book);
   Future<void> addBookingRegister(BookingRegister bookReg);
+  Future<void> updateBookingPhoneUser(Booking book,String phone);
 }

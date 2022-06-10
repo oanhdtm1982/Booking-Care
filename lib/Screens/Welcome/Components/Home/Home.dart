@@ -1,5 +1,4 @@
 
-import 'package:doanchuyennganh/Screens/Welcome/Components/Login/AddInformation.dart';
 import 'package:doanchuyennganh/bloc/banner_bloc/banner_bloc.dart';
 import 'package:doanchuyennganh/bloc/register_bloc/booking_bloc.dart';
 import 'package:doanchuyennganh/widgets/CustomShowSnackBar.dart';
@@ -7,7 +6,6 @@ import 'package:doanchuyennganh/widgets/webview_navigating.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../bloc/email_information_register/email_information_register_bloc.dart';
 import '../../../../widgets/InfoCard.dart';
 import '../../../../widgets/avatar.dart';
 import '../../../../widgets/avatar_email_sign_in.dart';

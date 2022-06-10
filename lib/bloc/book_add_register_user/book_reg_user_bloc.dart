@@ -34,5 +34,13 @@ class BookRegUserBloc extends Bloc<BookRegUserEvent, BookRegUserState> {
         BookRegUserError(e.toString());
       }
     });
+    on<UpdateBookingRegUser>((event, emit) async {
+      try{
+        _bookingRepository.updateBookingPhoneUser(event.bookRegUser,event.phone);
+      }catch(e){
+        UnLoadedBookingReg();
+        BookRegUserError(e.toString());
+      }
+    });
   }
 }
