@@ -17,8 +17,11 @@ NT114 - Đồ án chuyên ngành
       - Xem các bài báo mới về y tế
       - Xem địa chỉ cụ thể của bệnh viện trên map  
 3. Tác giả
+
     GVHD: ThS Trần Hồng Nghi 
+    
     Sinh viên thực hiện
+    
     - Đỗ Thị Minh Oanh (19521982)
     - Hồ Đình Tuấn (19522464)
              
