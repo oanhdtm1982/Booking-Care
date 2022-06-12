@@ -2,7 +2,7 @@
 
 NT114 - Đồ án chuyên ngành
 
-## Booking 
+## Booking Care
 1. Giới thiệu
       - Đồ án chuyên ngành (HK6) NT114.M21
       - Ứng dụng đăng kí lịch khám bệnh "Booking Care"   
