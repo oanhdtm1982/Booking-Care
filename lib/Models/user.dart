@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Users {
   String uid;
   String name;
@@ -13,8 +15,7 @@ class Users {
   String createat;
   String deleteat;
 
-  Users(
-      this.uid,
+  Users(this.uid,
       this.name,
       this.email,
       this.password,
@@ -45,39 +46,51 @@ class Users {
   String getuid() {
     return this.uid;
   }
+
   String getname() {
     return this.name;
   }
+
   String getemail() {
     return this.email;
   }
+
   String getpassword() {
     return this.password;
   }
+
   String getaddress() {
     return this.address;
   }
+
   String getphone() {
     return this.phone;
   }
+
   String getroleid() {
     return this.roleid;
   }
+
   String getavatar() {
     return this.avatar;
   }
+
   String getgender() {
     return this.gender;
   }
+
   String getdescription() {
     return this.description;
   }
+
   String getisactive() {
     return this.isactive;
   }
+
   String getcreateat() {
     return this.createat;
   }
+
   String getdedeleteat() {
     return this.deleteat;
   }

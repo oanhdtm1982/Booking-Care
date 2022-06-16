@@ -1,4 +1,5 @@
 
+import 'package:doanchuyennganh/Service/Database.dart';
 import 'package:flutter/material.dart';
 import 'Categories_home.dart';
 import 'SectionInfo_home.dart';
@@ -6,6 +7,11 @@ import 'EditAccount.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doanchuyennganh/Models/user.dart';
+import 'package:doanchuyennganh/Screens/Welcome/Components/Login/Login.dart' as Login;
+
+final String uid = Login.Email;
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,7 +27,8 @@ class BodyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: SingleChildScrollView(
+    return SafeArea(
+    child: SingleChildScrollView(
       child: Column(
         children: [
           Container(

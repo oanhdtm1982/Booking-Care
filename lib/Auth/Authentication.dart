@@ -44,7 +44,7 @@ class AuthService {
     try {
       UserCredential resutl = await _auth.createUserWithEmailAndPassword(email: _email, password: _password);
       User? user = resutl.user;
-      await DatabaseService(uid: user!.uid).updateUserData("0", _name, _email, _password, "", "", _phoneNumber, "", _gender, "", "", "", "");
+      await DatabaseService(uid: user!.uid, doctor_userid: "", clinicid: "", statusid: "", roleid: "", specializationid: "").updateUserData("0", _name, _email, _password, "", "", _phoneNumber, "", _gender, "", "", "", "");
       return _userFromUserCredential(user);
     } catch(e) {
       print(e.toString());
@@ -52,11 +52,7 @@ class AuthService {
     }
   }
   // auth user change stream
-  Stream<Users?> get user {
-    return _auth.authStateChanges()
-       // .map((User? user) => _userFromUserCredential(user));
-      .map(_userFromUserCredential);
-  }
+
 }
 
 /*

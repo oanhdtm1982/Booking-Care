@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import '../Keyboard.dart';
 import '../Tab.dart';
 
+String Email = "";
+
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
 
@@ -20,6 +22,8 @@ class _LoginState extends State<Login> {
 
   final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
+
+
 
   bool _showPass = false;
   TextEditingController _userController = new TextEditingController();
@@ -163,6 +167,7 @@ class _LoginState extends State<Login> {
  Future<void> onSignInClicked() async{
    print(email);
    print(password);
+   Email = email!;
    dynamic result =  await _authService.signInWithEmailAndPassword(email!, password!);
    if (result == null) {
         print('error signing in');
