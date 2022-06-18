@@ -92,7 +92,7 @@ class MyApp extends StatelessWidget {
           ],
           child: BlocBuilder<ThemeCubit, bool>(builder: (context, state) {
             return MaterialApp(
-              debugShowCheckedModeBanner: false,
+              debugShowCheckedModeBanner: true,
               title: 'Đồ Án Chuyên Ngành',
               themeMode: state ? ThemeMode.dark : ThemeMode.light,
               darkTheme: ThemeData.dark(),

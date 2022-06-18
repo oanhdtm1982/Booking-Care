@@ -61,7 +61,7 @@ class _TabState extends State<TabPage> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.add),
-              label: "Register",
+              label: "Booking",
               backgroundColor: Colors.blueAccent,
             ),
             BottomNavigationBarItem(

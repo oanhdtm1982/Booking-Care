@@ -16,7 +16,7 @@ class RegisterPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Text("Register",),
+        title: Text("Booking",),
         leading: IconButton(
           onPressed: (){
             Navigator.push(
