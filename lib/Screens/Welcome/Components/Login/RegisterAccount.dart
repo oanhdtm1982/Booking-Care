@@ -309,8 +309,8 @@ class _RegisterAccountState extends State<RegisterAccount> {
                                                 gender: _genderController.text
                                                     .trim(),
                                                 birthday: _dateTime,
-                                                imagePath:
-                                                    imageFile.toString(),
+                                                imagePath: imageFile != null ?
+                                                    imageFile.toString() : 'null',
                                                 email: _emailController.text
                                                     .trim());
                                                BlocProvider.of<BookRegUserBloc>(context).add(

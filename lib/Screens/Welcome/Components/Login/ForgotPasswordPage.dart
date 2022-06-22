@@ -168,8 +168,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         await _auth.sendPasswordResetEmail(email: _emailController.text);
         this.msg = 'Email has been sent to ${_emailController.text}';
         this.sentMsg();
-        Navigator.pop(context);
-        throw UnimplementedError;
+        Navigator.pop(context);       
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
           case "invalid-email":
